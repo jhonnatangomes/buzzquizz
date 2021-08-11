@@ -7,6 +7,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #FAFAFA;
 }
 
 header {
@@ -117,6 +118,46 @@ main {
     position: relative;
     top: 7px;
 }
+
+.question {
+    width: 759px;
+    margin-top: 42px;
+    padding: 28px 36px;
+    background-color: #FFFFFF;
+}
+
+.question:last-child {
+    margin-bottom: 170px;
+}
+
+.question:nth-child(even) .question-header{
+    background-color:#A0438D;
+}
+
+.question-header {
+    padding: 42px;
+    color: #FFFFFF;
+    font-weight: bold;
+    background-color:#434CA0;
+    text-align: center;
+}
+
+.question-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.question-item {
+    font-weight: bold;
+    font-size: 20px;
+}
+.question-item p {
+    margin: 7px 0 15px 0;
+}
+
+
 
 @media (max-width: 1100px) {
     
