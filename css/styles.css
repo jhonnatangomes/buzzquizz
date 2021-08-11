@@ -120,6 +120,9 @@ main {
 
 @media (max-width: 1100px) {
     
+    .container-user-quizzes {
+        margin: 38px 0;
+    }
 
     .main {
         width: 340px;
