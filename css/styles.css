@@ -30,7 +30,6 @@ main {
     margin-top: 69px;
     display: flex;
     flex-direction: column;
-    width: 1051px;
 }
 
 .container-user-quizzes {
@@ -121,13 +120,8 @@ main {
 
 @media (max-width: 1100px) {
     
-    .no-quizzes-created {
-        margin: 31px 0 35px 0;
-        width: 340px;
-        height: 181px;
-    }
 
-    .all-quizzes {
+    .main {
         width: 340px;
     }
 
