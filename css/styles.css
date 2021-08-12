@@ -281,9 +281,9 @@ main {
 }
 
 .next-button {
-    width: 323px;
-    font-size: 18px;
-    margin-top: 55px;
+    width: 352px;
+    height: 54px;
+    margin-top: 54px;
 }
 
 .container-create span {
@@ -314,6 +314,30 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.quizz-levels .container-create {
+    margin-top: 43px;
+    padding: 27px 20px 14px 17px;
+}
+
+.level {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.quizz-levels .container-create input:nth-child(2) {
+    margin-top: 12px;
+}
+
+.container-create.closed {
+    padding: 20px;
+}
+
+.finish-quizz {
+    margin-top: 48px;
+    width: 324px;
+    height: 54px;
 }
 
 @media (max-width: 1100px) {
