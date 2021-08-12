@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BuzzQuizz</title>
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
@@ -14,19 +15,41 @@
 <body>
     <header>BuzzQuizz</header>
 
-    <main>
-        <div class="initial-page hidden">
-            <section class="no-quizzes-created">
+    <main class="quizzes-list hidden">
+        <section class="container-user-quizzes">
+            <div class="no-quizzes-created">
                 <div>
                     <span>Você não criou nenhum quizz ainda :(</span>
                 </div>
                 <button class="create-quizz">Criar Quizz</button>
-            </section>
+            </div>
     
-            <section class="all-quizzes">
-                <span class="all-quizzes-title">Todos os Quizzes</span>
+            <div class="your-quizzes hidden">
                 
+                <div class="container-title-your-quizzes">
+                    <span class="title">Seus Quizzes</span>
+                    <ion-icon name="add-circle"></ion-icon>
+                </div>
     
+                <div class="quizzes">
+                    <div class="quizz">
+                        <img src="assets/potterhead.png" alt="Potterhead">
+                        <div>
+                            O quão Potterhead é você?
+                        </div>
+                    </div>
+                    <div class="quizz">
+                        <img src="assets/exbbb_exferias.png" alt="Ex-bbb ou ex-férias com o ex">
+                        <div>
+                            É ex-BBB ou ex-De férias com o Ex?
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="all-quizzes">
+            <span class="title">Todos os Quizzes</span>
                 <div class="quizzes">
                     <div class="quizz">
                         <img src="assets/simpsons.png" alt="Simpsons">
@@ -65,16 +88,81 @@
                         </div>
                     </div>
                 </div>
-            </section>
+        </section>
+    </main>
+
+    <main class="quizz-page">
+
+        <div class="quizz-title">
+            O quão Potterhead é você?
         </div>
         
-        <div class="quizz-page">
-            <div class="quizz-title">
-                O quão Potterhead é você?
+        <section class="question">
+            <div class="question-header">
+                Em qual animal Olho-Tonto Moody transfigurou Malfoy?
             </div>
+            <div class="question-items">
+                <div class="question-item">
+                    <img src="assets/gatineo.png" alt="Gatíneo">
+                    <p>Gatíneo</p>
+                </div>
+                <div class="question-item">
+                    <img src="assets/ratata.png" alt="Ratata">
+                    <p>Ratata</p>
+                </div>
+                <div class="question-item">
+                    <img src="assets/sapo_gordo.png" alt="Sapo gordo">
+                    <p>Sapo gordo</p>
+                </div>
+                <div class="question-item">
+                    <img src="assets/furao.png" alt="O Furão">
+                    <p>Mustela putorius (o Furão)</p>
+                </div>
+            </div>
+        </section>
 
-            
+        <section class="question">
+            <div class="question-header">
+                Qual dos objetos abaixo NÃO é uma horcrux?
+            </div>
+            <div class="question-items">
+                <div class="question-item">
+                    <img src="assets/harry_potter.png" alt="Harry Potter">
+                    <p>The boy who lived</p>
+                </div>
+                <div class="question-item">
+                    <img src="assets/livro_monstros.png" alt="Livro Monstruoso">
+                    <p>O livro monstruoso dos monstros</p>
+                </div>
+                <div class="question-item">
+                    <img src="assets/anel_velho.png" alt="Anel Velho">
+                    <p>Anel Velho</p>
+                </div>
+                <div class="question-item">
+                    <img src="assets/diadema.png" alt="Diadema da Ravenclaw">
+                    <p>Diadema da Ravenclaw</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="result">
+            <div class="result-header">
+                88% de acerto: Você é praticamente um aluno de Hogwarts!
+            </div>
+            <div class="result-container">
+                <img src="assets/bruxo_chefe.png" alt="Bem-vindo a Hogwarts">
+                <span>Parabéns Potterhead! Bem-vindx a Hogwarts, aproveite o loop infinito de comida e clique no botão abaixo para usar o vira-tempo e reiniciar este teste.</span>
+            </div>
+        </section>
+        
+        <div class="quiz-page-buttons">
+            <button class="restart-quiz-button">Reiniciar Quizz</button>
+            <p class="back-home-button">Voltar para home</p>
         </div>
+
     </main>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
