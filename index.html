@@ -15,7 +15,7 @@
 <body>
     <header>BuzzQuizz</header>
 
-    <main class="quizzes-list hidden">  
+    <main class="quizzes-list hidden">
         <section class="container-user-quizzes">
             <div class="no-quizzes-created hidden">
                 <div>
@@ -25,8 +25,11 @@
             </div>
     
             <div class="your-quizzes">
-                <span class="titles">Seus Quizzes</span>
-                <ion-icon name="add-circle"></ion-icon>
+                
+                <div class="container-title-your-quizzes">
+                    <span class="title">Seus Quizzes</span>
+                    <ion-icon name="add-circle"></ion-icon>
+                </div>
     
                 <div class="quizzes">
                     <div class="quizz">
@@ -38,15 +41,15 @@
                     <div class="quizz">
                         <img src="assets/exbbb_exferias.png" alt="Ex-bbb ou ex-férias com o ex">
                         <div>
-                            O quão Potterhead é você?
+                            É ex-BBB ou ex-De férias com o Ex?
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="all-quizzes hidden">
-            <span class="titles">Todos os Quizzes</span>
+        <section class="all-quizzes">
+            <span class="title">Todos os Quizzes</span>
             
             <div class="quizzes">
                 <div class="quizz">
@@ -90,6 +93,7 @@
     </main>
 
     <main class="quizz-page">
+        
         <section class="question">
             <div class="question-header">
                 Em qual animal Olho-Tonto Moody transfigurou Malfoy?
@@ -147,6 +151,11 @@
                 <span>Parabéns Potterhead! Bem-vindx a Hogwarts, aproveite o loop infinito de comida e clique no botão abaixo para usar o vira-tempo e reiniciar este teste.</span>
             </div>
         </section>
+        
+        <div class="quiz-page-buttons">
+            <button class="restart-quiz-button">Reiniciar Quizz</button>
+            <p class="back-home-button">Voltar para home</p>
+        </div>
 
     </main>
 
