@@ -4,6 +4,7 @@
 
 body {
     font-family: 'Roboto', sans-serif;
+    background-color: #FAFAFA;
 }
 
 header {
@@ -66,16 +67,16 @@ main {
     color: #EC362D;
 }
 
-.all-quizzes{
+.all-quizzes {
     width: 1051px;
 }
 
-.all-quizzes-title{
+.all-quizzes-title {
     font-weight: 700;
     font-size: 20px;
 }
 
-.quizzes{
+.quizzes {
     margin-top: 12px;
     display: grid;
     grid-template-columns: repeat(3, 340px);
@@ -83,13 +84,13 @@ main {
     row-gap: 12px;
 }
 
-.quizz{
+.quizz {
     width: 340px;
     height: 181px;
     position: relative;
 }
 
-.quizz div{
+.quizz div {
     width: 301px;
     height: 54px;
     position: absolute;
@@ -102,7 +103,34 @@ main {
     line-height: 20px;
 }
 
-@media (max-width: 1100px){
+.hidden {
+    display: none;
+}
+
+.quizz-page {
+   
+}
+
+.quizz-title {
+    font-size: 39px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    height: 227px;
+    width: 100vw;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), url("../assets/potterhead.png");
+    background-size: cover;
+    
+}
+
+.question{
+    width: 759px;
+    height: 676px;
+    background-color: white;
+}
+
+@media (max-width: 1100px) {
     
     .no-quizzes-created {
         margin: 31px 0 35px 0;
@@ -120,7 +148,7 @@ main {
         flex-direction: column;
     }
 
-    .quizzes div{
+    .quizzes div {
         margin-bottom: 2px;
     }
 }
