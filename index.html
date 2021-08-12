@@ -160,9 +160,9 @@
 
     <main class="quizz-create">
 
-        <section class="basic-info">
+        <section class="basic-info hidden">
             <span>Comece pelo começo</span>
-            <div class="container-basic-info">
+            <div class="container-create">
                 <input type="text" class="your-quizz-title" placeholder="Título do seu quizz">
                 <input type="text" class="url-img" placeholder="URL da imagem do seu quizz">
                 <input type="text" class="number-questions" placeholder="Quantidade de perguntas do quizz">
@@ -172,7 +172,41 @@
         </section>
 
         <section class="quizz-questions">
-
+            <span>Crie suas perguntas</span>
+            <div class="container-create">
+                <span>Pergunta 1</span>
+                <div class="info-question">
+                    <input type="text" class="question-text" placeholder="Texto da pergunta">
+                    <input type="text" class="question-background-color" placeholder="Cor de fundo da pergunta">
+                </div>
+                <span>Resposta correta</span>
+                <div class="correct-answer">
+                    <input type="text" class="correct-answer" placeholder="Resposta correta">
+                    <input type="text" class="question-background-color" placeholder="URL da imagem">
+                </div>
+                <span>Respostas incorretas</span>
+                <div class="incorrect-answer">
+                    <input type="text" class="incorrect-answer" placeholder="Resposta incorreta 1">
+                    <input type="text" class="question-background-color" placeholder="URL da imagem 1">
+                </div>
+                <div class="incorrect-answer">
+                    <input type="text" class="incorrect-answer" placeholder="Resposta incorreta 2">
+                    <input type="text" class="question-background-color" placeholder="URL da imagem 2">
+                </div>
+                <div class="incorrect-answer">
+                    <input type="text" class="incorrect-answer" placeholder="Resposta incorreta 3">
+                    <input type="text" class="question-background-color" placeholder="URL da imagem 3">
+                </div>
+            </div>
+            <div class="container-create closed">
+                <span>Pergunta 2</span>
+                <img src="assets/edit_icon.png" alt="Edite a pergunta">
+            </div>
+            <div class="container-create closed">
+                <span>Pergunta 3</span>
+                <img src="assets/edit_icon.png" alt="Edite a pergunta">
+            </div>
+            <button class="default-button next-button">Prosseguir para criar níveis</button>
         </section>
 
         <section class="quizz-levels hidden">
