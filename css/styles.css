@@ -4,9 +4,6 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     background-color: #FAFAFA;
 }
 
@@ -31,6 +28,7 @@ main {
     margin-top: 69px;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .container-user-quizzes {
@@ -39,6 +37,7 @@ main {
 
 .no-quizzes-created {
     height: 181px;
+    width: 1051px;
     border-radius: 5px;
     background-color: #FAFAFA;
     border: 1px dashed #D5D5D5;
@@ -122,29 +121,48 @@ main {
     align-items: center;
 }
 
+.quizz-page {
+    margin-bottom: 100px;
+    width: 100%;
+}
+
+.quizz-title {
+    width: 100%;
+    height: 227px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), url(../assets/potterhead.png);
+    background-size: cover;
+    background-position: center;
+    color: white;
+    font-size: 39px;
+}
+
 .question {
     width: 759px;
+    height: 676px;
     margin-top: 42px;
-    padding: 38px 30px;
+    padding: 27.91px 34.41px 0 36.43px;;
     background-color: #FFFFFF;
     font-size: 23px;
     box-shadow:  0px 0px 10px rgba(0, 0, 0, 0.05);
 }
 
-.quizz-page {
-    margin-bottom: 100px;
-}
-
-.question:nth-child(even) .question-header {
+.question:nth-child(odd) .question-header {
     background-color: #A0438D;
 }
 
 .question-header {
-    padding: 42px;
     color: #FFFFFF;
     font-weight: bold;
     background-color: #434CA0;
-    text-align: center;
+    font-size: 23px;
+    width: 688.16px;
+    height: 137.99px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .question-items {
@@ -160,24 +178,28 @@ main {
 }
 
 .question-item p {
-    margin: 7px 0 15px 0;
+    margin: 9px 0 18.61px 0;
 }
 
 .result {
-    padding: 28px 36px;
-    margin: 44px 0;
+    padding: 18px 14px 0 18px;
+    margin: 44px 0 57px 0;
     background-color: #FFFFFF;
     width: 759px;
+    height: 430px;
     box-shadow:  0px 0px 10px rgba(0, 0, 0, 0.05);
 }
 
 .result-header {
-    padding: 42px;
+    width: 727px;
+    height: 99px;
     color: #FFFFFF;
     font-weight: bold;
-    font-size: 22px;
+    font-size: 23px;
     background-color: #EC362D;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .result-container {
@@ -186,7 +208,9 @@ main {
 }
 
 .result-container img {
-    margin-right: 18px;
+    margin-right: 21px;
+    width: 364px;
+    height: 273px;
 }
 
 .result-container span {
@@ -194,6 +218,7 @@ main {
     font-weight: bold;
     line-height: 25px;
     color:#484848;
+    margin-right: 14px;
 }
 
 .quiz-page-buttons {
@@ -243,6 +268,7 @@ main {
     margin-bottom: 9px;
     border-radius: 5px;
     border: 1px solid #D1D1D1;
+    font-size: 20px;
     outline: none;
     padding-left: 23px;
 }
@@ -267,6 +293,10 @@ main {
         margin: 38px 0;
     }
 
+    .no-quizzes-created {
+        width: 340px;
+    }
+
     .container-title-your-quizzes {
         justify-content: space-between;
     }
@@ -281,18 +311,31 @@ main {
         margin-bottom: 2px;
     }
 
+    .your-quizz-title {
+        height: 142px;
+        font-size: 19px;
+    }
+
     .question {
         padding: 18px;
         width: 375px;
+        height: 436px;
+        margin-top: 24px;
+        margin-bottom: 4px;
+        padding: 18px 18px 0 18px;
     }
 
     .question img {
-        width: 164px
+        width: 164px;
+        height: 105px;
     }
 
     .question-header {
-        padding: 20px 16px;
         font-size: 19px;
+        width: 100%;
+        height: 89px;
+        padding: 0 20px;
+        text-align: center;
     }
 
     .question-item {
@@ -303,31 +346,35 @@ main {
         font-size: 13px;
     }
 
-    .question-items {
-        margin: 10px 0 0 0;
-    }
-
     .result {
         width: 375px;
         padding: 18px;
+        height: 500px;
+        margin-bottom: 34px;
     }
 
     .result-header {
         font-size: 19px;
         padding: 22px 16px;
+        width: 100%;
+        height: 99px;
     }
 
     .result-container {
         display: block;
+        margin-top: 9px;
     }
 
     .result-container img {
         margin-right: 0px;
         width: 340px;
+        height: 255px;
+        margin-bottom: 9px;
     }
 
     .result-container span {
         font-size: 17px;
+        line-height: 20px;
     }
 
     .restart-quiz-button {
