@@ -316,8 +316,11 @@ main {
     align-items: center;
 }
 
+.quizz-levels span {
+    margin-bottom: 43px;
+}
+
 .quizz-levels .container-create {
-    margin-top: 43px;
     padding: 27px 20px 14px 17px;
 }
 
@@ -440,4 +443,25 @@ main {
         font-size: 18px;
     }    
 
+    .quizz-create section {
+        margin-top: 37px;
+    }
+
+    .quizz-create span {
+        font-size: 20px;
+    }
+
+    .container-create {
+        width: 375px;
+    }
+
+    .default-button {
+        font-size: 18px;
+    }
+
+    .next-button {
+        margin-top: 2px;
+        width: 324px;
+    }
+    
 }
