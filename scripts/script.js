@@ -15,6 +15,8 @@ function showQuizzes(response) {
         ids = [];
     }
 
+    //use IDs to remove eventListeners
+
     for (let i = 0; i < response.data.length; i++){
         if(!ids.includes(response.data[i].id)) {
             quizzes.innerHTML += `
@@ -50,6 +52,8 @@ function openQuizzPage(image, title, questions) {
         <span>${title}</span>
     </div>
     `
+
+    //Change to forEach
     
     for(let i = 0; i < questions.length; i++) {
         quizzPage.innerHTML += `<section class="question">
@@ -95,13 +99,14 @@ function shuffle(array) {
 }
 
 function selectAnswer(element, questionId) {
-    console.log("Question ID: " + questionId);
     if(questionId !== questionIdPrevious) {
         isAnswered = false;
     }
 
     if(!isAnswered) {
-        element.classList.add("correct-item");
+        if(!element.classList.contains("incorrect-item")) {
+            element.classList.add("correct-item");
+        }
         const items = element.parentNode.querySelectorAll(".question-item");
         for (let i = 0; i < items.length; i++){
             if(!items[i].classList.contains("correct-item")) {
