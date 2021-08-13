@@ -161,6 +161,10 @@ button {
     z-index: -1;
 }
 
+.quizz-title span {
+    text-align: center;
+}
+
 .question {
     width: 759px;
     height: 676px;
@@ -169,6 +173,10 @@ button {
     background-color: #FFFFFF;
     font-size: 23px;
     box-shadow:  0px 0px 10px rgba(0, 0, 0, 0.05);
+}
+
+.question:last-child {
+    margin-bottom: 20px;
 }
 
 .question:nth-child(odd) .question-header {
@@ -197,6 +205,11 @@ button {
 .question-item {
     font-weight: bold;
     font-size: 20px;
+}
+
+.question-item img {
+    width: 329.91px;
+    height: 175.2px;
 }
 
 .question-item p {
