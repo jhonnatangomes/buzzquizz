@@ -146,11 +146,19 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), url(../assets/potterhead.png);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57));
     background-size: cover;
     background-position: center;
     color: white;
     font-size: 39px;
+    position: relative;
+}
+
+.quizz-title img {
+    width: 100%;
+    height: 227px;
+    position: absolute;
+    z-index: -1;
 }
 
 .question {
