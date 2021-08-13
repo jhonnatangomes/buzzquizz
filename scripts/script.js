@@ -8,17 +8,29 @@ function getQuizzes() {
 function showQuizzes(response) {
     const quizzes = document.querySelector(".all-quizzes .quizzes");
     quizzes.innerHTML = "";
+    ids = JSON.parse(localStorage.getItem("ids"));
 
-    for (let i = 0; i < response.data.length; i++){
-        quizzes.innerHTML += `
-        <div class="quizz">
-            <img src="${response.data[i].image}" alt="${response.data[i].title}">
-            <div>
-                ${response.data[i].title}
+    for (let i = 0; i < response.data.length; i++){ 
+        if(!ids.includes(response.data[i].id)) {
+            quizzes.innerHTML += `
+            <div class="quizz" onclick="openQuizzPage();">
+                <img src="${response.data[i].image}" alt="${response.data[i].title}">
+                <div>
+                    ${response.data[i].title}
+                </div>
             </div>
-        </div>
-        `
+            `
+        }
+        
     }
+}
+
+function openQuizzPage() {
+    const quizzesList = document.querySelector(".quizzes-list");
+    const quizzPage = document.querySelector(".quizz-page");
+
+    quizzesList.classList.add("hidden");
+    quizzPage.classList.remove("hidden");
 }
 
 getQuizzes();
