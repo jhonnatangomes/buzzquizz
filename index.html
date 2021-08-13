@@ -15,17 +15,16 @@
 <body>
     <header>BuzzQuizz</header>
 
-    <main class="quizzes-list ">
+    <main class="quizzes-list hidden">
         <section class="container-user-quizzes">
-            <div class="no-quizzes-created">
+            <div class="no-quizzes-created hidden">
                 <div>
                     <span>Você não criou nenhum quizz ainda :(</span>
                 </div>
                 <button class="create-quizz">Criar Quizz</button>
             </div>
     
-            <div class="your-quizzes hidden">
-                
+            <div class="your-quizzes">
                 <div class="container-title-your-quizzes">
                     <span class="title">Seus Quizzes</span>
                     <ion-icon name="add-circle"></ion-icon>
@@ -92,7 +91,6 @@
     </main>
 
     <main class="quizz-page hidden">
-        
         <section class="question">
             <div class="question-header">
                 Em qual animal Olho-Tonto Moody transfigurou Malfoy?
@@ -151,15 +149,13 @@
             </div>
         </section>
         
-        <div class="quiz-page-buttons">
+        <div class="container-buttons">
             <button class="default-button restart-quizz-button">Reiniciar Quizz</button>
             <p class="back-home-button">Voltar para home</p>
         </div>
-
     </main>
 
     <main class="quizz-create">
-
         <section class="basic-info hidden">
             <span>Comece pelo começo</span>
             <div class="container-create">
@@ -231,8 +227,18 @@
             <button class="default-button finish-quizz">Finalizar Quizz</button>
         </section>
 
-        <section class="quizz-success hidden">
-
+        <section class="quizz-success">
+            <span>Seu quizz está pronto!</span>
+            <div class="quizz">
+                <img src="assets/potterhead.png" alt="Potterhead">
+                <div>
+                    O quão Potterhead é você?
+                </div>
+            </div>
+            <div class="container-buttons">
+                <button class="default-button access-quizz-button">Acessar Quizz</button>
+                <p class="back-home-button">Voltar para home</p>
+            </div>
         </section>
 
     </main>

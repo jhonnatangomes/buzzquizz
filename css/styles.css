@@ -25,7 +25,7 @@ header {
 }
 
 main {
-    margin-top: 69px;
+    margin: 69px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -87,6 +87,7 @@ main {
     width: 340px;
     height: 181px;
     position: relative;
+    border-radius: 5px;
 }
 
 .quizz div {
@@ -119,11 +120,6 @@ main {
 .container-title-your-quizzes {
     display: flex;
     align-items: center;
-}
-
-.quizz-page {
-    margin-bottom: 100px;
-    width: 100%;
 }
 
 .quizz-title {
@@ -221,7 +217,7 @@ main {
     margin-right: 14px;
 }
 
-.quiz-page-buttons {
+.container-buttons {
     text-align: center;
 }
 
@@ -296,10 +292,6 @@ main {
    margin-top: 15px;
 }
 
-.quizz-questions button {
-    margin-bottom: 30px;
-}
-
 .closed img {
     width: 26px;
     height: 24px;
@@ -341,6 +333,25 @@ main {
     margin-top: 48px;
     width: 324px;
     height: 54px;
+}
+
+.quizz-success span{
+    display: block;
+}
+
+.quizz-success .quizz {
+    width: 500px;
+    height: auto;
+    margin: 45px 0;
+}
+
+.quizz-success img {
+    width: 100%;
+}
+
+.access-quizz-button {
+    width: 220px;
+    height: 44px;
 }
 
 @media (max-width: 1100px) {
@@ -462,6 +473,11 @@ main {
     .next-button {
         margin-top: 2px;
         width: 324px;
+    }
+
+    .quizz-success .quizz {
+        width: 340px;
+        margin: 29px 0 24px 0;
     }
     
 }
