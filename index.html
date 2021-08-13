@@ -15,7 +15,7 @@
 <body>
     <header>BuzzQuizz</header>
 
-    <main class="quizzes-list hidden">
+    <main class="quizzes-list ">
         <section class="container-user-quizzes">
             <div class="no-quizzes-created hidden">
                 <div>
@@ -155,7 +155,7 @@
         </div>
     </main>
 
-    <main class="quizz-create">
+    <main class="quizz-create hidden">
         <section class="basic-info hidden">
             <span>Comece pelo começo</span>
             <div class="container-create">
@@ -227,7 +227,7 @@
             <button class="default-button finish-quizz">Finalizar Quizz</button>
         </section>
 
-        <section class="quizz-success">
+        <section class="quizz-success hidden">
             <span>Seu quizz está pronto!</span>
             <div class="quizz">
                 <img src="assets/potterhead.png" alt="Potterhead">
@@ -243,7 +243,9 @@
 
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="scripts/script.js"></script>
 </body>
 </html>
