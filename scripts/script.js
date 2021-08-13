@@ -1,4 +1,5 @@
 const URL_API = "https://mock-api.bootcamp.respondeai.com.br/api/v3/buzzquizz/quizzes";
+let quiz;
 
 function getQuizzes() {
     const promise = axios.get(URL_API);
@@ -7,12 +8,11 @@ function getQuizzes() {
 
 function showQuizzes(response) {
     const quizzes = document.querySelector(".all-quizzes .quizzes");
-    
+    console.log(response);
+    quiz = response;
     quizzes.innerHTML = "";
-    ids = JSON.parse(localStorage.getItem("ids"));
 
     for (let i = 0; i < response.data.length; i++){ 
-        if(!ids.includes(response.data[i].id)) {
             quizzes.innerHTML += `
             <div class="quizz">
                 <img src="${response.data[i].image}" alt="${response.data[i].title}">
@@ -21,7 +21,7 @@ function showQuizzes(response) {
                 </div>
             </div>
             `
-        }
+            
     }
 
     const quizzArray = document.querySelectorAll(".all-quizzes .quizz");
