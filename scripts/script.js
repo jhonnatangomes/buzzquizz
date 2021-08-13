@@ -11,8 +11,10 @@ function showQuizzes(response) {
     console.log(response);
     quiz = response;
     quizzes.innerHTML = "";
+    //const ids = JSON.parse(localStorage.getItem("ids"));
 
-    for (let i = 0; i < response.data.length; i++){ 
+    for (let i = 0; i < response.data.length; i++){
+        //f(ids !== null && !ids.includes(response.data[i].id)) {
             quizzes.innerHTML += `
             <div class="quizz">
                 <img src="${response.data[i].image}" alt="${response.data[i].title}">
@@ -21,7 +23,7 @@ function showQuizzes(response) {
                 </div>
             </div>
             `
-            
+        //} 
     }
 
     const quizzArray = document.querySelectorAll(".all-quizzes .quizz");
@@ -57,6 +59,8 @@ function openQuizzPage(image, title, questions) {
         </div>
         </section>
         `
+        shuffle(questions[i].answers);
+
         question = document.querySelectorAll(".quizz-page .question .question-items")[i];
         for(let j = 0; j < questions[i].answers.length; j++){
             question.innerHTML += `    
@@ -79,6 +83,13 @@ function createQuizz() {
 
     quizzesList.classList.add("hidden");
     quizzCreate.classList.remove("hidden");
+}
+
+function shuffle(array) {
+    for(let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i+1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
 }
 
 getQuizzes();
