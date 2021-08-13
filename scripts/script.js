@@ -33,4 +33,12 @@ function openQuizzPage() {
     quizzPage.classList.remove("hidden");
 }
 
+function createQuizz() {
+    const quizzesList = document.querySelector(".quizzes-list");
+    const quizzCreate = document.querySelector(".quizz-create");
+
+    quizzesList.classList.add("hidden");
+    quizzCreate.classList.remove("hidden");
+}
+
 getQuizzes();
