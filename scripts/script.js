@@ -95,7 +95,6 @@ function shuffle(array) {
 }
 
 function selectAnswer(element, questionId) {
-    console.log("Question ID: " + questionId);
     if(questionId !== questionIdPrevious) {
         isAnswered = false;
     }
