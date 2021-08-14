@@ -26,18 +26,22 @@ function checkBasicInfo() {
 
     if (title.length < 20 || title.length > 65) { 
         sectionBasicInfo.querySelector(".title-error").classList.remove("hidden");
+        sectionBasicInfo.querySelector(".your-quizz-title").classList.add("invalid-input");
         hasError = true;
     }
     if (!isValidURL(titleImageUrl)) {
         sectionBasicInfo.querySelector(".url-error").classList.remove("hidden");
+        sectionBasicInfo.querySelector(".url-img").classList.add("invalid-input");
         hasError = true;
     }
     if (numQuestions < 3 || isNaN(numQuestions)) { 
         sectionBasicInfo.querySelector(".questions-error").classList.remove("hidden");
+        sectionBasicInfo.querySelector(".number-questions").classList.add("invalid-input");
         hasError = true;
     }
     if (numLevels < 2 || isNaN(numLevels)) { 
         sectionBasicInfo.querySelector(".levels-error").classList.remove("hidden");
+        sectionBasicInfo.querySelector(".number-levels").classList.add("invalid-input");
         hasError = true;
     }
 

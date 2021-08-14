@@ -446,6 +446,15 @@ button {
     margin-top: 12px;
 }
 
+.invalid-input {
+    background-color: #FFE9E9;
+}
+
+.error {
+    color: #EC362D;
+    font-size: 16px;
+}
+
 @media (max-width: 1100px) {
     
     .container-user-quizzes {
