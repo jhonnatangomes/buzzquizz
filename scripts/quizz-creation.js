@@ -108,4 +108,4 @@ function isValidURL(url) {
     return (result !== null);
 }
 
-changePage(sectionBasicInfo);
+//changePage(sectionBasicInfo);
