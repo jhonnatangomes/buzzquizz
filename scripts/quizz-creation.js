@@ -4,6 +4,8 @@ const sectionQuizzQuestions = document.querySelector(".quizz-questions");
 const sectionQuizzLevels = document.querySelector(".quizz-levels");
 const sectionQuizzSuccess = document.querySelector(".quizz-success");
 
+let title, titleImageUrl, numQuestions, numLevels;
+
 function changePage(page) {
     document.querySelectorAll("main section").forEach(e => {e.classList.add("hidden")});
     window.scrollTo({top: 0, left: 0, behavior: 'auto'});
@@ -12,26 +14,30 @@ function changePage(page) {
 }
 
 function checkBasicInfo() {
-    const titleLength = sectionBasicInfo.querySelector(".your-quizz-title").value.length;
+    title = sectionBasicInfo.querySelector(".your-quizz-title").value;
+    titleImageUrl = sectionBasicInfo.querySelector(".url-img").value;
+    numQuestions = sectionBasicInfo.querySelector(".number-questions").value;
+    numLevels = sectionBasicInfo.querySelector(".number-levels").value;
+
     let hasError = false;
 
-    if (titleLength < 20 || titleLength > 65) { 
+    if (title.length < 20 || title.length > 65) { 
         sectionBasicInfo.querySelector(".title-error").classList.remove("hidden");
         hasError = true;
     }
-    if (!isValidURL(sectionBasicInfo.querySelector(".url-img").value)) {
+    if (!isValidURL(titleImageUrl)) {
         sectionBasicInfo.querySelector(".url-error").classList.remove("hidden");
         hasError = true;
     }
-    if (sectionBasicInfo.querySelector(".number-questions").value < 3) { 
+    if (numQuestions < 3 || isNaN(numQuestions)) { 
         sectionBasicInfo.querySelector(".questions-error").classList.remove("hidden");
         hasError = true;
     }
-    if (sectionBasicInfo.querySelector(".number-levels").value < 2) { 
+    if (numLevels < 2 || isNaN(numLevels)) { 
         sectionBasicInfo.querySelector(".levels-error").classList.remove("hidden");
         hasError = true;
     }
-    
+
     if (!hasError) {
         sectionBasicInfo.querySelectorAll("p").forEach(e => {e.classList.add("hidden")});
         return true;
