@@ -1,5 +1,6 @@
 const URL_API = "https://mock-api.bootcamp.respondeai.com.br/api/v3/buzzquizz/quizzes";
 let isAnswered = false, questionIdPrevious = 0, questionsAnswered = 0, correctAnswers = 0, score = 0;
+let levels;
 
 function getQuizzes() {
     const promise = axios.get(URL_API);
@@ -18,7 +19,7 @@ function showQuizzes(response) {
     for (let i = 0; i < response.data.length; i++){
         if(!ids.includes(response.data[i].id)) {
             quizzes.innerHTML += `
-            <div class="quizz">
+            <div class="quizz" id="${response.data[i].id}" onclick="selectQuizz(this)">
                 <img src="${response.data[i].image}" alt="${response.data[i].title}">
                 <div>
                     ${response.data[i].title}
@@ -27,18 +28,17 @@ function showQuizzes(response) {
             `
         } 
     }
+}
 
-    const quizzArray = document.querySelectorAll(".all-quizzes .quizz");
-    for(let i = 0; i < quizzArray.length; i++) {
-        quizzArray[i].addEventListener('click', function () {
-            openQuizzPage(response.data[i].image, response.data[i].title, response.data[i].questions);
-        })
-    }
+function selectQuizz(element) {
+    const elementId = element.id;
+    const promise = axios.get(`${URL_API}/${elementId}`);
 
+    promise.then(openQuizzPage);
 }
 
 
-function openQuizzPage(image, title, questions) {
+function openQuizzPage(response) {
     const quizzesList = document.querySelector(".quizzes-list");
     const quizzPage = document.querySelector(".quizz-page");
     let question;
@@ -47,34 +47,47 @@ function openQuizzPage(image, title, questions) {
 
     quizzPage.innerHTML += `
     <div class="quizz-title">
-        <img src="${image}" alt="">
-        <span>${title}</span>
+        <img src="${response.data.image}" alt="">
+        <span>${response.data.title}</span>
     </div>
     `
     
-    for(let i = 0; i < questions.length; i++) {
+    for(let i = 0; i < response.data.questions.length; i++) {
         quizzPage.innerHTML += `<section class="question" id="question${i + 1}">
         <div class="question-header">
-            ${questions[i].title}
+            ${response.data.questions[i].title}
         </div>
 
         <div class="question-items">
         </div>
         </section>
         `
-        shuffle(questions[i].answers);
+        shuffle(response.data.questions[i].answers);
 
         question = document.querySelectorAll(".quizz-page .question .question-items")[i];
-        for(let j = 0; j < questions[i].answers.length; j++){
-            question.innerHTML += `    
-            <div class="question-item correct-${questions[i].answers[j].isCorrectAnswer.toString()}" onclick="selectAnswer(this, ${i+1}, ${questions.length});">
-                <img src="${questions[i].answers[j].image}" alt="">
-                <p>${questions[i].answers[j].text}</p>
-            </div>
-            `
+        for(let j = 0; j < response.data.questions[i].answers.length; j++){
+            if(response.data.questions[i].answers[j].isCorrectAnswer) {
+                question.innerHTML += `    
+                <div class="question-item correct" onclick="selectAnswer(this, ${i+1}, ${response.data.questions.length});">
+                    <img src="${response.data.questions[i].answers[j].image}" alt="">
+                    <p>${response.data.questions[i].answers[j].text}</p>
+                 </div>
+                 `
+            }
+            else {
+                question.innerHTML += `    
+                <div class="question-item incorrect" onclick="selectAnswer(this, ${i+1}, ${response.data.questions.length});">
+                    <img src="${response.data.questions[i].answers[j].image}" alt="">
+                    <p>${response.data.questions[i].answers[j].text}</p>
+                 </div>
+                 `
+            }
+            
         }
         
     }
+
+    levels = response.data.levels;
 
     quizzesList.classList.add("hidden");
     quizzPage.classList.remove("hidden");
@@ -104,7 +117,7 @@ function selectAnswer(element, questionId, questionsLength) {
         const answers = element.parentNode.querySelectorAll(".question-item");
         element.classList.add("selected-answer");
 
-        if(element.classList.contains("correct-true")) {
+        if(element.classList.contains("correct")) {
             correctAnswers += 1;
         }
 
@@ -113,10 +126,10 @@ function selectAnswer(element, questionId, questionsLength) {
                 answer.classList.add("blur-item")
             };
 
-            if(answer.classList.contains("correct-true")){
+            if(answer.classList.contains("correct")){
                 answer.classList.add("correct-item");
             }
-            if(answer.classList.contains("correct-false")){
+            if(answer.classList.contains("incorrect")){
                 answer.classList.add("incorrect-item");
             }
 
@@ -142,15 +155,18 @@ function scrollToNextQuestion (questionId) {
 function showResult(questionsLength) {
     if(questionsLength === questionsAnswered) {
         score = correctAnswers/questionsLength;
+        score *= 100;
+        score = Math.round(score);
+        let levelAchieved = levels.filter((element) => score >= element.minValue);
         const quizzPage = document.querySelector(".quizz-page");
         quizzPage.innerHTML += `
         <section class="result" id="question${questionsLength + 1}">
             <div class="result-header">
-                88% de acerto: Você é praticamente um aluno de Hogwarts!
+                ${score}% de acerto: ${levelAchieved[levelAchieved.length - 1].title}
             </div>
             <div class="result-container">
-                <img src="assets/bruxo_chefe.png" alt="Bem-vindo a Hogwarts">
-                <span>Parabéns Potterhead! Bem-vindx a Hogwarts, aproveite o loop infinito de comida e clique no botão abaixo para usar o vira-tempo e reiniciar este teste.</span>
+                <img src="${levelAchieved[levelAchieved.length - 1].image}">
+                <span>${levelAchieved[levelAchieved.length - 1].text}</span>
             </div>
         </section>
         
