@@ -1,5 +1,5 @@
 const URL_API = "https://mock-api.bootcamp.respondeai.com.br/api/v3/buzzquizz/quizzes";
-let isAnswered = false, questionIdPrevious = 0, questionsAnswered = 0, correctAnswers = 0, score = 0;
+let isAnswered = false, questionIdPrevious = 0, questionsAnswered = 0, correctAnswers = 0, score = 0, showingResult = false;
 let levels;
 
 function getQuizzes() {
@@ -159,22 +159,26 @@ function showResult(questionsLength) {
         score = Math.round(score);
         let levelAchieved = levels.filter((element) => score >= element.minValue);
         const quizzPage = document.querySelector(".quizz-page");
-        quizzPage.innerHTML += `
-        <section class="result" id="question${questionsLength + 1}">
-            <div class="result-header">
-                ${score}% de acerto: ${levelAchieved[levelAchieved.length - 1].title}
+        if(!showingResult) {
+            quizzPage.innerHTML += `
+            <section class="result" id="question${questionsLength + 1}">
+                <div class="result-header">
+                    ${score}% de acerto: ${levelAchieved[levelAchieved.length - 1].title}
+                </div>
+                <div class="result-container">
+                    <img src="${levelAchieved[levelAchieved.length - 1].image}">
+                    <span>${levelAchieved[levelAchieved.length - 1].text}</span>
+                </div>
+            </section>
+            
+            <div class="container-buttons">
+                <button class="default-button restart-quizz-button">Reiniciar Quizz</button>
+                <p class="back-home-button">Voltar para home</p>
             </div>
-            <div class="result-container">
-                <img src="${levelAchieved[levelAchieved.length - 1].image}">
-                <span>${levelAchieved[levelAchieved.length - 1].text}</span>
-            </div>
-        </section>
-        
-        <div class="container-buttons">
-            <button class="default-button restart-quizz-button">Reiniciar Quizz</button>
-            <p class="back-home-button">Voltar para home</p>
-        </div>
-        `
+            `
+
+            showingResult = true;
+        }
     }
 }
 
