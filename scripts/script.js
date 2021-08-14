@@ -172,7 +172,7 @@ function showResult(questionsLength) {
             </section>
             
             <div class="container-buttons">
-                <button class="default-button restart-quizz-button">Reiniciar Quizz</button>
+                <button class="default-button restart-quizz-button" onclick="restartQuizz();">Reiniciar Quizz</button>
                 <p class="back-home-button">Voltar para home</p>
             </div>
             `
@@ -180,6 +180,30 @@ function showResult(questionsLength) {
             showingResult = true;
         }
     }
+}
+
+function restartQuizz() {
+
+    const questions = document.querySelectorAll(".question-item");
+    questions.forEach((element) => {
+        element.classList.remove("blur-item");
+        element.classList.remove("correct-item");
+        element.classList.remove("incorrect-item");
+        element.classList.remove("selected-answer");
+    })
+
+    const result = document.querySelector(".result");
+    const containerButtons = document.querySelector(".container-buttons");
+    result.remove();
+    containerButtons.remove();
+
+    questionsAnswered = 0;
+    score = 0;
+    correctAnswers = 0;
+    questionIdPrevious = 0;
+    showingResult = false;
+
+    document.documentElement.scrollTop = 0;
 }
 
 getQuizzes();
