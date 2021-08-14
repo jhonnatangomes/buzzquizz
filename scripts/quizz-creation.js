@@ -4,13 +4,12 @@ const sectionQuizzQuestions = document.querySelector(".quizz-questions");
 const sectionQuizzLevels = document.querySelector(".quizz-levels");
 const sectionQuizzSuccess = document.querySelector(".quizz-success");
 
-let title, titleImageUrl, numQuestions = 3 /*teste*/, numLevels;
+let title, titleImageUrl, numQuestions = 3, numLevels;
 
-let questionText, backgroundColorQuestion, answerText = [], answerImageUrl = [];
-
+let questions = [];
 
 function changePage(page) {
-    document.querySelectorAll("main section").forEach(e => {e.classList.add("hidden")});
+    document.querySelectorAll("main section").forEach(e => e.classList.add("hidden"));
     window.scrollTo({top: 0, left: 0, behavior: 'auto'}); /*teste*/
     mainQuizzCreate.classList.remove("hidden");
     page.classList.remove("hidden");
@@ -23,6 +22,7 @@ function checkBasicInfo() {
     numLevels = sectionBasicInfo.querySelector(".number-levels").value;
 
     let hasError = false;
+    sectionBasicInfo.querySelectorAll("p").forEach(e => e.classList.add("hidden"));
 
     if (title.length < 20 || title.length > 65) { 
         sectionBasicInfo.querySelector(".title-error").classList.remove("hidden");
@@ -42,7 +42,7 @@ function checkBasicInfo() {
     }
 
     if (!hasError) {
-        sectionBasicInfo.querySelectorAll("p").forEach(e => {e.classList.add("hidden")});
+        //sectionBasicInfo.querySelectorAll("p").forEach(e => {e.classList.add("hidden")});
         changePage(sectionQuizzQuestions);
         drawQuizzQuestions();
     }
@@ -71,6 +71,7 @@ function drawQuizzQuestions() {
                         <p class="error hidden">A URL informada não é válida</p>
                     </div>
                     <span>Respostas incorretas</span>
+                    <p class="error min-one-incorrect hidden">É necessário que tenha pelo menos uma resposta incorreta</p>
                     <div class="answer">
                         <input type="text" class="text-answer" placeholder="Resposta incorreta 1">
                         <p class="error hidden">A resposta não pode estar vazia</p>
@@ -92,28 +93,31 @@ function drawQuizzQuestions() {
                 </div>
             </div>
         </div>
-        `}
+    `}
+    sectionQuizzQuestions.innerHTML += `<button class="default-button next-button" onclick="checkAllQuizzQuestions()">Prosseguir para criar níveis</button>`
 }
 
 function toggleCollapsedQuestion(select) {
     const content = select.nextElementSibling;
-    if(!select.classList.contains("closed")) {
-        checkQuizzQuestions(content);
-        select.classList.toggle("closed");
-    }
+
+    select.classList.toggle("closed");
     if (content.style.maxHeight) content.style.maxHeight = null;
     else content.style.maxHeight = content.scrollHeight + "px";
 }
 
 
 function checkQuizzQuestions(select) {
+
     let hasError = false;
+    let question = {};
+    let answers = {};
 
-    questionText = select.querySelector(".question-text").value;
-    
-    backgroundColorQuestion = select.querySelector(".question-background-color").value;
+    select.querySelectorAll("p").forEach(e => {e.classList.add("hidden")});
 
-    if (questionText.length < 20) {
+    const questionText = select.querySelector(".question-text").value;
+    const backgroundColorQuestion = select.querySelector(".question-background-color").value;
+
+    if (questionText.length < 20 || questionText.length < 1) {
         select.querySelector(".question-text").nextElementSibling.classList.remove("hidden");
         hasError = true;
     }
@@ -122,27 +126,51 @@ function checkQuizzQuestions(select) {
         hasError = true;
     }
 
-    select.querySelectorAll(".answer").forEach(e => {
-        answerText = e.querySelector(".text-answer").value;
-        answerImageUrl = e.querySelector(".url-img-answer").value;
+    select.querySelectorAll(".answer").forEach((e,i) => {
+        const answerText = e.querySelector(".text-answer").value;
+        const answerImageUrl = e.querySelector(".url-img-answer").value;
 
-        if (answerText.length < 1) {
-            e.querySelector(".text-answer").nextElementSibling.classList.remove("hidden");
-            hasError = true;
-        }
-        if (!isValidURL(answerImageUrl)){
-            e.querySelector(".url-img-answer").nextElementSibling.classList.remove("hidden");
-            hasError = true;
+        if (i <= 1) {
+            if (answerText.length < 1) {
+                if (i<= 1) e.querySelector(".text-answer").nextElementSibling.classList.remove("hidden");
+                hasError = true;
+            }
+            if (!isValidURL(answerImageUrl)){
+                e.querySelector(".url-img-answer").nextElementSibling.classList.remove("hidden");
+                hasError = true;
+            }
         }
 
+        if (!hasError && (answerText.length > 0) && (isValidURL(answerImageUrl))) {
+            answers += `{
+                text: ${answerText},
+                image: ${answerImageUrl},
+                isCorrectAnswer: ${(i === 0) ? true:false},
+            },`
+        }      
     });
 
-    if (hasError) {
-        console.log("retornou true")
-        return true;
+    if (select.querySelectorAll(".answer").length < 2 || select.querySelectorAll(".answer")[0].value === ""){
+        select.querySelector(".min-one-incorrect").classList.remove("hidden");
+        hasError = true;
     }
-    return false;
 
+    if (!hasError && answers !== {}) {
+        question = {
+            title: questionText,
+            color: backgroundColorQuestion,
+            answers: [answers],
+        }
+        questions.push(question);
+    }
+}
+
+const checkAllQuizzQuestions = () => {
+    const allQuestions = sectionQuizzQuestions.querySelectorAll(".content-question");
+    allQuestions.forEach(e => checkQuizzQuestions(e));
+
+    if (questions.length === numQuestions) changePage(sectionQuizzLevels);
+    else questions = [];
 }
 
 
@@ -151,5 +179,5 @@ function isValidURL(url) {
     return (result !== null);
 }
 
-//changePage(sectionQuizzQuestions);/*teste*/
-//drawQuizzQuestions(); /*teste*/
+changePage(sectionQuizzQuestions);
+drawQuizzQuestions();
