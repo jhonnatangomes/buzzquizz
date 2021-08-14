@@ -165,8 +165,10 @@ button {
     z-index: -1;
 }
 
-.quizz-title span {
+.quizz-title span, .question-header, .question-item p, .quizz div {
     text-align: center;
+    overflow-x: auto; 
+    overflow-y: hidden;
 }
 
 .question {
@@ -470,6 +472,13 @@ button {
     .your-quizz-title {
         height: 142px;
         font-size: 19px;
+    }
+
+    .quizz-title span, .question-header, .question-item p {
+        width: 100%;
+        text-align: center;
+        overflow-x: auto;
+        overflow-y: hidden;
     }
 
     .question {
