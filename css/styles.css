@@ -165,8 +165,10 @@ button {
     z-index: -1;
 }
 
-.quizz-title span {
+.quizz-title span, .question-header, .question-item p, .quizz div {
     text-align: center;
+    overflow-x: auto; 
+    overflow-y: auto;
 }
 
 .question {
@@ -222,6 +224,7 @@ button {
 .question-item p {
     margin: 9px 0 18.61px 0;
     width: 329.91px;
+    height: 34px;
 }
 
 .correct-item {
@@ -255,6 +258,7 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: auto;
 }
 
 .result-container {
@@ -274,6 +278,8 @@ button {
     line-height: 25px;
     color:#484848;
     margin-right: 14px;
+    width: 328px;
+    height: 250px;
 }
 
 .container-buttons {
@@ -436,6 +442,10 @@ button {
     transition: 0.6s ease-out;
 }
 
+.info-question {
+    margin-top: 12px;
+}
+
 @media (max-width: 1100px) {
     
     .container-user-quizzes {
@@ -470,6 +480,13 @@ button {
     .your-quizz-title {
         height: 142px;
         font-size: 19px;
+    }
+
+    .quizz-title span, .question-header, .question-item p {
+        width: 100%;
+        text-align: center;
+        overflow-x: auto;
+        overflow-y: hidden;
     }
 
     .question {
@@ -519,6 +536,8 @@ button {
     .result-container {
         display: block;
         margin-top: 9px;
+        width: 100%;
+        height: 96px;
     }
 
     .result-container img {
