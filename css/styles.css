@@ -29,7 +29,7 @@ header {
 }
 
 main {
-    margin-top: 69px;
+    margin: 69px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
