@@ -173,7 +173,7 @@ function showResult(questionsLength) {
             
             <div class="container-buttons">
                 <button class="default-button restart-quizz-button" onclick="restartQuizz();">Reiniciar Quizz</button>
-                <p class="back-home-button">Voltar para home</p>
+                <p class="back-home-button" onclick="returnToHomeScreen();">Voltar para home</p>
             </div>
             `
 
@@ -204,6 +204,20 @@ function restartQuizz() {
     showingResult = false;
 
     document.documentElement.scrollTop = 0;
+}
+
+function returnToHomeScreen() {
+    const quizzPage = document.querySelector(".quizz-page");
+    const quizzesList = document.querySelector(".quizzes-list");
+
+    quizzPage.classList.add("hidden");
+    quizzesList.classList.remove("hidden");
+
+    questionsAnswered = 0;
+    score = 0;
+    correctAnswers = 0;
+    questionIdPrevious = 0;
+    showingResult = false;
 }
 
 getQuizzes();
