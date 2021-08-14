@@ -114,7 +114,7 @@ function checkQuizzQuestions(select) {
 
     let hasError = false;
     let question = {};
-    let answers = {};
+    let answers = [];
 
     //Todos os parágrafos já são criados com a classe hidden
     //select.querySelectorAll("p").forEach(e => {e.classList.add("hidden")});
@@ -135,23 +135,23 @@ function checkQuizzQuestions(select) {
         const answerText = e.querySelector(".text-answer").value;
         const answerImageUrl = e.querySelector(".url-img-answer").value;
 
-        //if (i <= 1) {
+        if (i <= 1) {
             if (answerText.length < 1) {
-                /*if (i<= 1)*/ e.querySelector(".text-answer").nextElementSibling.classList.remove("hidden");
+                if (i<= 1) e.querySelector(".text-answer").nextElementSibling.classList.remove("hidden");
                 hasError = true;
             }
             if (!isValidURL(answerImageUrl)){
                 e.querySelector(".url-img-answer").nextElementSibling.classList.remove("hidden");
                 hasError = true;
             }
-        //}
+        }
 
         if (!hasError && (answerText.length > 0) && (isValidURL(answerImageUrl))) {
-            answers += `{
-                text: ${answerText},
-                image: ${answerImageUrl},
-                isCorrectAnswer: ${(i === 0) ? true:false},
-            },`
+            answers.push ({
+                text: answerText,
+                image: answerImageUrl,
+                isCorrectAnswer: (i === 0) ? true:false
+            });
         }      
     });
 
@@ -164,7 +164,7 @@ function checkQuizzQuestions(select) {
         question = {
             title: questionText,
             color: backgroundColorQuestion,
-            answers: [answers],
+            answers: answers,
         }
         questions.push(question);
     }
