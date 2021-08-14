@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #FAFAFA;
@@ -173,6 +177,7 @@ button {
     background-color: #FFFFFF;
     font-size: 23px;
     box-shadow:  0px 0px 10px rgba(0, 0, 0, 0.05);
+    scroll-margin-top: 79px;
 }
 
 .question:last-child {
@@ -216,6 +221,7 @@ button {
 
 .question-item p {
     margin: 9px 0 18.61px 0;
+    width: 329.91px;
 }
 
 .correct-item {
@@ -223,6 +229,10 @@ button {
 }
 
 .incorrect-item {
+    color: #FF4B4B;
+}
+
+.blur-item {
     opacity: 30%;
 }
 
@@ -268,6 +278,7 @@ button {
 
 .container-buttons {
     text-align: center;
+    margin-bottom: 30px;
 }
 
 .default-button {
