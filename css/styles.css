@@ -350,12 +350,12 @@ button {
 
 .container-create span {
     display: inline-block;
-    margin-top: 7px;
+    margin: 14px 0;
     font-size: 20px;
 }
 
-.info-question, .incorrect-answer, .correct-answer {
-   margin-top: 15px;
+.info-question, .answer, .answer {
+   margin-bottom: 15px;
 }
 
 .box-question.closed img {
