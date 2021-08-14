@@ -116,7 +116,8 @@ function checkQuizzQuestions(select) {
     let question = {};
     let answers = {};
 
-    select.querySelectorAll("p").forEach(e => {e.classList.add("hidden")});
+    //Todos os parágrafos já são criados com a classe hidden
+    //select.querySelectorAll("p").forEach(e => {e.classList.add("hidden")});
 
     const questionText = select.querySelector(".question-text").value;
     const backgroundColorQuestion = select.querySelector(".question-background-color").value;
@@ -134,16 +135,16 @@ function checkQuizzQuestions(select) {
         const answerText = e.querySelector(".text-answer").value;
         const answerImageUrl = e.querySelector(".url-img-answer").value;
 
-        if (i <= 1) {
+        //if (i <= 1) {
             if (answerText.length < 1) {
-                if (i<= 1) e.querySelector(".text-answer").nextElementSibling.classList.remove("hidden");
+                /*if (i<= 1)*/ e.querySelector(".text-answer").nextElementSibling.classList.remove("hidden");
                 hasError = true;
             }
             if (!isValidURL(answerImageUrl)){
                 e.querySelector(".url-img-answer").nextElementSibling.classList.remove("hidden");
                 hasError = true;
             }
-        }
+        //}
 
         if (!hasError && (answerText.length > 0) && (isValidURL(answerImageUrl))) {
             answers += `{
