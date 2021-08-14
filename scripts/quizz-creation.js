@@ -4,7 +4,7 @@ const sectionQuizzQuestions = document.querySelector(".quizz-questions");
 const sectionQuizzLevels = document.querySelector(".quizz-levels");
 const sectionQuizzSuccess = document.querySelector(".quizz-success");
 
-let title, titleImageUrl, numQuestions, numLevels;
+let title, titleImageUrl, numQuestions = 3 /*teste*/, numLevels;
 
 let questionText, backgroundColorQuestion, answerText, answerImageUrl = [];  
 
@@ -52,7 +52,7 @@ function drawQuizzQuestions() {
     for (let i = 1;i <= numQuestions;i++){
         sectionQuizzQuestions.innerHTML += 
         `<div class="container-create">
-            <div class="box-question" onclick="toggleCollapsedQuestion(this)">
+            <div class="box-question closed" onclick="toggleCollapsedQuestion(this)">
                     <span>Pergunta ${i}</span>
                     <img src="assets/edit_icon.png" alt="Edite a pergunta">
                 </div>
@@ -86,7 +86,7 @@ function drawQuizzQuestions() {
 }
 
 function toggleCollapsedQuestion(select) {
-    select.classList.toggle("opened");
+    select.classList.toggle("closed");
     
     const content = select.nextElementSibling;
 
@@ -108,4 +108,5 @@ function isValidURL(url) {
     return (result !== null);
 }
 
-changePage(sectionBasicInfo);
+changePage(sectionQuizzQuestions);/*teste*/
+drawQuizzQuestions(); /*teste*/
