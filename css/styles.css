@@ -29,7 +29,7 @@ header {
 }
 
 main {
-    margin: 30px 0;
+    margin-top: 69px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -330,6 +330,10 @@ button {
     padding-left: 23px;
 }
 
+.quizz-create .basic-info input:first-child {
+    margin-top: 21px;
+}
+
 .container-create input::placeholder {
     font-size: 19px;
     font-style: italic;
@@ -352,7 +356,7 @@ button {
    margin-top: 15px;
 }
 
-.box-question.opened img {
+.box-question.closed img {
     width: 26px;
     height: 24px;
     cursor: pointer;
@@ -360,11 +364,11 @@ button {
     transition: opacity 0.6s ease-out;
 }
 
-.opened span {
+.closed span {
     margin: 0;
 }
 
-.opened {
+.closed {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -387,7 +391,7 @@ button {
     margin-top: 12px;
 }
 
-.container-create.opened {
+.container-create.closed {
     padding: 20px;
 }
 
@@ -424,7 +428,6 @@ button {
 
 .box-question img {
     opacity: 0;
-    
 }
 
 .content-question {

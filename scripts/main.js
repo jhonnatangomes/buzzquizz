@@ -1,5 +1,5 @@
 const URL_API = "https://mock-api.bootcamp.respondeai.com.br/api/v3/buzzquizz/quizzes";
-let isAnswered = false, questionIdPrevious = 0, questionsAnswered = 0, correctAnswers = 0, score = 0, showingResult = false;
+let questionIdPrevious = 0, questionsAnswered = 0, correctAnswers = 0, score = 0, showingResult = false;
 let levels;
 
 function getQuizzes() {
@@ -39,7 +39,6 @@ function selectQuizz(element) {
 
 
 function openQuizzPage(response) {
-    const quizzesList = document.querySelector(".quizzes-list");
     const quizzPage = document.querySelector(".quizz-page");
     let question;
 
@@ -89,11 +88,8 @@ function openQuizzPage(response) {
 
     levels = response.data.levels;
 
-    setTimeout(window.scrollTo, 1, {top: 0, left: 0, behavior: 'auto'});
-    quizzesList.classList.add("hidden");
-    quizzPage.classList.remove("hidden");
+    changePages("quizzes-list", "quizz-page");
     
-    //document.querySelector(".quizz-title").scrollIntoView();
 }
 
 function createQuizz() {
@@ -112,11 +108,8 @@ function shuffle(array) {
 }
 
 function selectAnswer(element, questionId, questionsLength) {
-    if(questionId !== questionIdPrevious) {
-        isAnswered = false;
-    }
 
-    if(!isAnswered && questionsAnswered !== questionsLength) {
+    if(!element.classList.contains("isAnswered") && questionsAnswered !== questionsLength) {
         const answers = element.parentNode.querySelectorAll(".question-item");
         element.classList.add("selected-answer");
 
@@ -136,11 +129,12 @@ function selectAnswer(element, questionId, questionsLength) {
                 answer.classList.add("incorrect-item");
             }
 
+            answer.classList.add("isAnswered");
+
         });
 
         questionsAnswered += 1;
         questionIdPrevious = questionId;
-        isAnswered = true;
         setTimeout(scrollToNextQuestion, 2000, questionId);
     }
 
@@ -209,11 +203,7 @@ function restartQuizz() {
 }
 
 function returnToHomeScreen() {
-    const quizzPage = document.querySelector(".quizz-page");
-    const quizzesList = document.querySelector(".quizzes-list");
-
-    quizzPage.classList.add("hidden");
-    quizzesList.classList.remove("hidden");
+    changePages("quizz-page", "quizzes-list");
 
     questionsAnswered = 0;
     score = 0;
@@ -222,6 +212,15 @@ function returnToHomeScreen() {
     showingResult = false;
 }
 
+function changePages(pageToHide, pageToShow) {
+    const toHide = document.querySelector(`.${pageToHide}`);
+    const toShow = document.querySelector(`.${pageToShow}`);
 
+    toHide.classList.add("hidden");
+    toShow.classList.remove("hidden");
+    setTimeout(window.scrollTo, 1, {
+        top: 0, left: 0, behavior: 'auto'
+    });
+}
 
 getQuizzes();
