@@ -89,8 +89,11 @@ function openQuizzPage(response) {
 
     levels = response.data.levels;
 
+    setTimeout(window.scrollTo, 1, {top: 0, left: 0, behavior: 'auto'});
     quizzesList.classList.add("hidden");
     quizzPage.classList.remove("hidden");
+    
+    //document.querySelector(".quizz-title").scrollIntoView();
 }
 
 function createQuizz() {
@@ -183,7 +186,6 @@ function showResult(questionsLength) {
 }
 
 function restartQuizz() {
-
     const questions = document.querySelectorAll(".question-item");
     questions.forEach((element) => {
         element.classList.remove("blur-item");
@@ -203,7 +205,7 @@ function restartQuizz() {
     questionIdPrevious = 0;
     showingResult = false;
 
-    document.documentElement.scrollTop = 0;
+    setTimeout(window.scrollTo, 1, 0, 0);
 }
 
 function returnToHomeScreen() {
@@ -219,5 +221,7 @@ function returnToHomeScreen() {
     questionIdPrevious = 0;
     showingResult = false;
 }
+
+
 
 getQuizzes();
