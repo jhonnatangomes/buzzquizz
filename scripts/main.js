@@ -109,7 +109,7 @@ function shuffle(array) {
 
 function selectAnswer(element, questionId, questionsLength) {
 
-    if(!element.classList.contains("isAnswered") && questionsAnswered !== questionsLength) {
+    if(!element.classList.contains("is-answered") && questionsAnswered !== questionsLength) {
         const answers = element.parentNode.querySelectorAll(".question-item");
         element.classList.add("selected-answer");
 
@@ -129,7 +129,7 @@ function selectAnswer(element, questionId, questionsLength) {
                 answer.classList.add("incorrect-item");
             }
 
-            answer.classList.add("isAnswered");
+            answer.classList.add("is-answered");
 
         });
 
@@ -186,6 +186,7 @@ function restartQuizz() {
         element.classList.remove("correct-item");
         element.classList.remove("incorrect-item");
         element.classList.remove("selected-answer");
+        element.classList.remove("is-answered");
     })
 
     const result = document.querySelector(".result");
