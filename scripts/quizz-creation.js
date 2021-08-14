@@ -151,5 +151,5 @@ function isValidURL(url) {
     return (result !== null);
 }
 
-changePage(sectionQuizzQuestions);/*teste*/
-drawQuizzQuestions(); /*teste*/
+//changePage(sectionQuizzQuestions);/*teste*/
+//drawQuizzQuestions(); /*teste*/
