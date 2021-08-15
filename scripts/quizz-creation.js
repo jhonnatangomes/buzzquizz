@@ -357,7 +357,7 @@ function showQuizzSucess(response) {
         </div>
     </div>
     <div class="container-buttons">
-        <button class="default-button access-quizz-button" onclick="selectQuizz(${response.data.id});">Acessar Quizz</button>
+        <button class="default-button access-quizz-button" onclick="getQuizz(${response.data.id}, openQuizzPage);">Acessar Quizz</button>
         <p class="back-home-button" onclick="returnToHomeScreen();">Voltar para home</p>
     </div>
     `

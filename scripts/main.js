@@ -7,9 +7,18 @@ function getQuizzes() {
     promise.then(showQuizzes);
 }
 
-function getYourQuizz(id) {
-    const promise = axios.get(`${URL_API}/${id}`);
-    promise.then(showYourQuizzes);
+
+function getQuizz(element, functionToCall) {
+    let elementId;
+    if(typeof(element) === "number"){
+        elementId = element;
+    }
+    else {
+        elementId = element.id;
+    }
+
+    const promise = axios.get(`${URL_API}/${elementId}`);
+    promise.then(functionToCall);
 }
 
 function showQuizzes(response) {
@@ -25,7 +34,7 @@ function showQuizzes(response) {
     for (let i = 0; i < response.data.length; i++){
         if(!ids.includes(response.data[i].id)) {
             quizzes.innerHTML += `
-            <div class="quizz" id="${response.data[i].id}" onclick="selectQuizz(this)">
+            <div class="quizz" id="${response.data[i].id}" onclick="getQuizz(this, openQuizzPage)">
                 <img src="${response.data[i].image}" alt="${response.data[i].title}">
                 <div>
                     ${response.data[i].title}
@@ -34,24 +43,22 @@ function showQuizzes(response) {
             `
         } 
     }
-
     
 }
 
 function checkYourQuizzes() {
     const ids = JSON.parse(localStorage.getItem("ids"));
     const containerUserQuizzes = document.querySelectorAll(".container-user-quizzes > div");
-    const quizzes = containerUserQuizzes[1].querySelector(".quizzes");
     if(ids !== null) {
         containerUserQuizzes.forEach(e => e.classList.toggle("hidden"));
-        ids.forEach(id => getYourQuizz(id));
+        ids.forEach(id => getQuizz(id, showYourQuizzes));
     }
 }
 
 function showYourQuizzes(response) {
     const yourQuizzes = document.querySelector(".your-quizzes .quizzes");
     yourQuizzes.innerHTML += `
-    <div class="quizz">
+    <div class="quizz" onclick="getQuizz(${response.data.id}, openQuizzPage)">
         <img src="${response.data.image}" alt="${response.data.title}">
         <div>
             ${response.data.title}
@@ -59,20 +66,6 @@ function showYourQuizzes(response) {
     </div>
     `
 }
-
-function selectQuizz(element) {
-    let elementId;
-    if(typeof(element) === "number"){
-        elementId = element;
-    }
-    else {
-        elementId = element.id;
-    }
-    const promise = axios.get(`${URL_API}/${elementId}`);
-
-    promise.then(openQuizzPage);
-}
-
 
 function openQuizzPage(response) {
     const quizzPage = document.querySelector(".quizz-page");
@@ -262,14 +255,22 @@ function changePages(pageToShow) {
 
     //toHide.classList.add("hidden");
 
-    
+    if(toShow.tagName === "SECTION") {
+        toShow.parentNode.classList.remove("hidden");
+    }
 
-    if(pageToShow === "quizz-page" || pageToShow === "quizzes-list") {
+    if(pageToShow === "quizz-page") {
         toShow.querySelectorAll("section").forEach(e => e.classList.remove("hidden"));
     }
 
-    toShow.parentNode.classList.remove("hidden");
+    if(pageToShow === "quizzes-list") {
+        window.location.reload();
+        return;
+    }
+
     toShow.classList.remove("hidden");
+    
+
     setTimeout(window.scrollTo, 1, {
         top: 0, left: 0, behavior: 'auto'
     });
