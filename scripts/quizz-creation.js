@@ -6,7 +6,7 @@ const sectionQuizzSuccess = document.querySelector(".quizz-success");
 
 let title, titleImageUrl, numQuestions = 3, numLevels = 2;
 
-let questions = [], levels = [];
+let questions = [], levels = [], levelPercentages = [];
 
 /*                 General functions                  */
 function toggleCollapsed(select) {
@@ -133,6 +133,17 @@ function drawQuizzQuestions() {
     sectionQuizzQuestions.innerHTML += `<button class="default-button next-button" onclick="checkAllQuizzQuestions()">Prosseguir para criar níveis</button>`
 }
 
+const checkAllQuizzQuestions = () => {
+    const allQuestions = sectionQuizzQuestions.querySelectorAll(".content");
+    allQuestions.forEach(e => checkQuizzQuestions(e));
+
+    if (questions.length === Number(numQuestions)){ 
+        changePages("quizz-questions", "quizz-levels");
+        drawQuizzLevels();
+    }
+    else questions = [];
+}
+
 function checkQuizzQuestions(select) {
 
     let hasError = false;
@@ -193,21 +204,15 @@ function checkQuizzQuestions(select) {
             color: questionBackgroundColor,
             answers: answers,
         }
-        console.log(question);
         questions.push(question);
     }
 }
 
-const checkAllQuizzQuestions = () => {
-    const allQuestions = sectionQuizzQuestions.querySelectorAll(".content");
-    allQuestions.forEach(e => checkQuizzQuestions(e));
-
-    if (questions.length === Number(numQuestions)) changePages("quizz-questions", "quizz-levels");
-    else questions = [];
-}
-
 /*                  Levels Functions                  */
 function drawQuizzLevels() {
+    sectionQuizzLevels.innerHTML += `
+    <p class="error hidden percentage-0-not-found">É necessário pelo menos um nível com 0% de acerto mínimo</p>
+    `
     for (let i = 1;i <= numLevels;i++){
         sectionQuizzLevels.innerHTML += `
         <div class="container-create">
@@ -216,18 +221,42 @@ function drawQuizzLevels() {
                 <img src="assets/edit_icon.png" alt="Edite a pergunta">
             </div>
             <div class="content">
-                <input type="text" class="level-title" placeholder="Título do nível">
-                <p class="error hidden">O título requer pelo menos 10 caracteres</p>
-                <input type="text" class="minimal-percentage" placeholder="% de acerto mínima">
-                <p class="error hidden">A porcentagem de acerto mínima deve ser um número entre 0 e 100</p>
-                <input type="text" class="url-level-image" placeholder="URL da imagem do nível">
-                <p class="error hidden">A URL tem formato inválido</p>
-                <input type="text" class="level-description" placeholder="Descrição do nível">
-                <p class="error hidden">O descrição requer pelo menos 30 caracteres</p>
+                <div>
+                    <input type="text" class="level-title" placeholder="Título do nível">
+                    <p class="error hidden">O título requer pelo menos 10 caracteres</p>
+                </div>
+                <div>
+                    <input type="text" class="minimal-percentage" placeholder="% de acerto mínima">
+                    <p class="error hidden">A porcentagem de acerto mínima deve ser um número entre 0 e 100</p>
+                </div>
+                <div>
+                    <input type="text" class="url-level-image" placeholder="URL da imagem do nível">
+                    <p class="error hidden">A URL tem formato inválido</p>
+                </div>
+                <div>
+                    <input type="text" class="level-description" placeholder="Descrição do nível">
+                    <p class="error hidden">O descrição requer pelo menos 30 caracteres</p>
+                </div>
             </div>
         </div>`
     }
     sectionQuizzLevels.innerHTML += `<button class="default-button finish-quizz" onclick="checkAllQuizzLevels()">Finalizar Quizz</button>`
+}
+
+const checkAllQuizzLevels = () => {
+    const allLevels = document.querySelector(".quizz-levels").querySelectorAll(".content");
+    allLevels.forEach(e => checkQuizzLevels(e));
+
+    document.querySelector(".percentage-0-not-found").classList.add("hidden");
+
+    if (levels.length === Number(numLevels) && levelPercentages.includes("0")) {
+        console.log("Enviando quizz ao servidor")
+    }
+    else {
+        levels = [];
+        if (!levelPercentages.includes("0")) document.querySelector(".percentage-0-not-found").classList.remove("hidden");
+        levelPercentages = [];
+    };
 }
 
 function checkQuizzLevels(select) {
@@ -243,11 +272,11 @@ function checkQuizzLevels(select) {
     const descriptionLevel = select.querySelector(".level-description").value;
 
     if (titleLevel.length < 10) {
-        select.querySelector(".question-text").nextElementSibling.classList.remove("hidden");
-        select.querySelector(".question-text").classList.add("invalid-input");
+        select.querySelector(".level-title").nextElementSibling.classList.remove("hidden");
+        select.querySelector(".level-title").classList.add("invalid-input");
         hasError = true;
     }
-    if (minPorcentageCorrect < 0 || minPorcentageCorrect > 100) {
+    if (minPorcentageCorrect < 0 || minPorcentageCorrect > 100 || minPorcentageCorrect === "" || isNaN(minPorcentageCorrect)) {
         select.querySelector(".minimal-percentage").nextElementSibling.classList.remove("hidden");
         select.querySelector(".minimal-percentage").classList.add("invalid-input");
         hasError = true;
@@ -264,7 +293,7 @@ function checkQuizzLevels(select) {
     }
     //if ()
 
-    if (!hasError && answers.length > 0) {
+    if (!hasError) {
         level = {
             title: titleLevel,
             image: urlImgLevel,
@@ -276,17 +305,16 @@ function checkQuizzLevels(select) {
         console.log(levels);
     }
 
+
+    levelPercentages.push(minPorcentageCorrect);
+
 }
 
-const checkAllQuizzLevels = () => {
-    const allLevels = document.querySelector(".quizz-levels").querySelectorAll(".content");
-    allLevels.forEach(e => checkQuizzLevels(e));
 
-    if (levels.length === Number(numLevels)) {
-        console.log("Enviando quizz ao servidor")
-    }
-    else levels = [];
-}
 
-changePages("quizzes-list", "quizz-levels");
+changePages("quizzes-list", "quizz-levels"); 
 drawQuizzLevels();
+
+
+// changePages("quizzes-list", "quizz-questions");
+// drawQuizzQuestions();

@@ -146,7 +146,7 @@ function showResult(questionsLength) {
         score = correctAnswers/questionsLength;
         score *= 100;
         score = Math.round(score);
-        let levelAchieved = levels.filter((element) => score >= element.minValue);
+        let levelAchieved = levelsResponse.filter((element) => score >= element.minValue);
         const quizzPage = document.querySelector(".quizz-page");
         if(!showingResult) {
             quizzPage.innerHTML += `
@@ -216,4 +216,4 @@ function changePages(pageToHide, pageToShow) {
     });
 }
 
-getQuizzes();
+//getQuizzes();
