@@ -370,16 +370,17 @@ button {
     margin-bottom: 14px;
 }
 
-.box-question.closed img {
+.collapsible-box.closed img {
     width: 26px;
     height: 24px;
     cursor: pointer;
     opacity: 1;
-    transition: opacity 0.6s ease-out;
+    transition: 0.6s ease-out;
 }
 
 .closed span {
-    margin: 0;
+    margin-bottom: 10px;
+    transition: 0.5s ease-out;
 }
 
 .closed {
@@ -434,19 +435,20 @@ button {
     height: 44px;
 }
 
-.box-question {
+.collapsible-box {
     width: 100%;
     padding-top: 20px;
     cursor: pointer;
 }
 
-.box-question img {
+.collapsible-box img {
     opacity: 0;
 }
 
-.content-question {
+.content {
     overflow: hidden;
-    transition: 0.6s ease-out;
+    max-height: 0;
+    transition: 0.7s ease-in-out;
 }
 
 .invalid-input {
@@ -458,7 +460,9 @@ button {
     font-size: 16px;
 }
 
-
+.opened {
+    max-height: 750px;
+}
 
 @media (max-width: 1100px) {
 

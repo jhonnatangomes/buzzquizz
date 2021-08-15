@@ -6,7 +6,7 @@ const sectionQuizzSuccess = document.querySelector(".quizz-success");
 
 let title, titleImageUrl, numQuestions = 3, numLevels;
 
-let questions = [];
+let questions = [], listLevels = [];
 
 // function changePage(page) {
 //     document.querySelectorAll("main section").forEach(e => e.classList.add("hidden"));
@@ -15,6 +15,24 @@ let questions = [];
 //     page.classList.remove("hidden");
 // }
 
+/*                 General functions                  */
+function toggleCollapsed(select) {
+    const content = select.nextElementSibling;
+    select.classList.toggle("closed");
+    content.classList.toggle("opened");
+}
+
+function isValidURL(url) {
+    let result = url.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+    return (result !== null);
+}
+
+function isHexadecimal (text) {
+    let result = text.match(/[0-9A-Fa-f]{6}/g);
+    return (result !== null);
+}
+
+/*                 Basic info functions                  */
 function checkBasicInfo() {
     title = sectionBasicInfo.querySelector(".your-quizz-title").value;
     titleImageUrl = sectionBasicInfo.querySelector(".url-img").value;
@@ -54,15 +72,16 @@ function checkBasicInfo() {
     }
 }
 
+/*                  Question Functions                  */
 function drawQuizzQuestions() {
     for (let i = 1;i <= numQuestions;i++){
         sectionQuizzQuestions.innerHTML += 
         `<div class="container-create">
-                <div class="box-question closed" onclick="toggleCollapsedQuestion(this)">
+                <div class="collapsible-box closed" onclick="toggleCollapsed(this)">
                     <span>Pergunta ${i}</span>
                     <img src="assets/edit_icon.png" alt="Edite a pergunta">
                 </div>
-                <div class="content-question hidden">
+                <div class="content">
                     <div class="info-question">
                         <div>
                             <input type="text" class="question-text" placeholder="Texto da pergunta">
@@ -123,16 +142,6 @@ function drawQuizzQuestions() {
     sectionQuizzQuestions.innerHTML += `<button class="default-button next-button" onclick="checkAllQuizzQuestions()">Prosseguir para criar níveis</button>`
 }
 
-function toggleCollapsedQuestion(select) {
-    const content = select.nextElementSibling;
-
-    select.classList.toggle("closed");
-    // if (content.style.maxHeight) content.style.maxHeight = null;
-    // else content.style.maxHeight = content.scrollHeight + "px";
-    content.classList.toggle("hidden");
-}
-
-
 function checkQuizzQuestions(select) {
 
     let hasError = false;
@@ -143,14 +152,14 @@ function checkQuizzQuestions(select) {
     select.querySelectorAll("input").forEach(e => {e.classList.remove("invalid-input")});
 
     const questionText = select.querySelector(".question-text").value;
-    const backgroundColorQuestion = select.querySelector(".question-background-color").value;
+    const questionBackgroundColor = select.querySelector(".question-background-color").value;
 
     if (questionText.length < 20 || questionText.length < 1) {
         select.querySelector(".question-text").nextElementSibling.classList.remove("hidden");
         select.querySelector(".question-text").classList.add("invalid-input");
         hasError = true;
     }
-    if (backgroundColorQuestion[0] !== "#" || backgroundColorQuestion.length !== 7 || !isHexadecimal(backgroundColorQuestion)) {
+    if (questionBackgroundColor[0] !== "#" || questionBackgroundColor.length !== 7 || !isHexadecimal(questionBackgroundColor)) {
         select.querySelector(".question-background-color").nextElementSibling.classList.remove("hidden");
         select.querySelector(".question-background-color").classList.add("invalid-input");
         hasError = true;
@@ -187,10 +196,10 @@ function checkQuizzQuestions(select) {
         hasError = true;
     }
 
-    if (!hasError && answers !== {}) {
+    if (!hasError && answers.length > 0) {
         question = {
             title: questionText,
-            color: backgroundColorQuestion,
+            color: questionBackgroundColor,
             answers: answers,
         }
         console.log(question);
@@ -199,23 +208,38 @@ function checkQuizzQuestions(select) {
 }
 
 const checkAllQuizzQuestions = () => {
-    const allQuestions = sectionQuizzQuestions.querySelectorAll(".content-question");
+    const allQuestions = sectionQuizzQuestions.querySelectorAll(".content");
     allQuestions.forEach(e => checkQuizzQuestions(e));
 
     if (questions.length === Number(numQuestions)) changePages("quizz-questions", "quizz-levels");
     else questions = [];
 }
 
-
-function isValidURL(url) {
-    let result = url.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
-    return (result !== null);
+/*                  Levels Functions                  */
+function drawQuizzLevels() {
+    for (let i = 1;i <= numLevels;i++){
+        sectionQuizzLevels.innerHTML += `
+        <div class="container-create">
+            <div class="collapsible-box closed" onclick="toggleCollapsed(this)">
+                <p class="level">Nível ${i}</p>
+                <img src="assets/edit_icon.png" alt="Edite a pergunta">
+            </div>
+            <div class="content">
+                <input type="text" class="level-title" placeholder="Título do nível">
+                <input type="text" class="minimal-percentage" placeholder="% de acerto mínima">
+                <input type="text" class="url-level-image" placeholder="URL da imagem do nível">
+                <input type="text" class="level-description" placeholder="Descrição do nível">
+            </div>
+        </div>`
+    }
+    sectionQuizzLevels.innerHTML += `<button class="default-button finish-quizz">Finalizar Quizz</button>`
 }
 
-function isHexadecimal (text) {
-    let result = text.match(/[0-9A-Fa-f]{6}/g);
-    return (result !== null);
+function checkQuizzLevels() {
+    let hasError = false;
+    let level = {};
 }
 
-//changePages("quizzes-list", "quizz-questions");
-//drawQuizzQuestions();
+
+changePages("quizzes-list", "quizz-questions");
+drawQuizzQuestions();
