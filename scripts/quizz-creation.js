@@ -4,9 +4,11 @@ const sectionQuizzQuestions = document.querySelector(".quizz-questions");
 const sectionQuizzLevels = document.querySelector(".quizz-levels");
 const sectionQuizzSuccess = document.querySelector(".quizz-success");
 
+
 let title, titleImageUrl, numQuestions = 3, numLevels = 2;
 
-let questions = [], levels = [], levelPercentages = [];
+let questions = [], levels = [];
+
 
 /*                 General functions                  */
 function toggleCollapsed(select) {
@@ -23,6 +25,18 @@ function isValidURL(url) {
 function isHexadecimal (text) {
     let result = text.match(/[0-9A-Fa-f]{6}/g);
     return (result !== null);
+}
+
+function sendQuizzServer() {
+    const quizzObject = {
+        title: title,
+        image: titleImageUrl,
+        questions: questions,
+        levels: levels
+    };
+
+    const promise = axios.post(URL_API, quizzObject);
+    promise.then(showQuizzSucess);
 }
 
 /*                 Basic info functions                  */
@@ -312,6 +326,9 @@ function checkQuizzLevels(select) {
 
 }
 
+function showQuizzSucess() {
+    changePages("quizz-levels", "quizz-success");
+}
 
 
 changePages("quizzes-list", "quizz-levels"); 
