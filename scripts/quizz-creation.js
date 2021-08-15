@@ -8,12 +8,12 @@ let title, titleImageUrl, numQuestions = 3, numLevels;
 
 let questions = [];
 
-function changePage(page) {
-    document.querySelectorAll("main section").forEach(e => e.classList.add("hidden"));
-    window.scrollTo({top: 0, left: 0, behavior: 'auto'}); /*teste*/
-    mainQuizzCreate.classList.remove("hidden");
-    page.classList.remove("hidden");
-}
+// function changePage(page) {
+//     document.querySelectorAll("main section").forEach(e => e.classList.add("hidden"));
+//     window.scrollTo({top: 0, left: 0, behavior: 'auto'}); /*teste*/
+//     mainQuizzCreate.classList.remove("hidden");
+//     page.classList.remove("hidden");
+// }
 
 function checkBasicInfo() {
     title = sectionBasicInfo.querySelector(".your-quizz-title").value;
@@ -46,8 +46,10 @@ function checkBasicInfo() {
     }
 
     if (!hasError) {
-        //sectionBasicInfo.querySelectorAll("p").forEach(e => {e.classList.add("hidden")});
-        changePage(sectionQuizzQuestions);
+        sectionBasicInfo.querySelectorAll("p").forEach(e => {e.classList.add("hidden")});
+        //changePage(sectionQuizzQuestions);
+        //drawQuizzQuestions();
+        changePages("basic-info", "quizz-questions");
         drawQuizzQuestions();
     }
 }
@@ -214,5 +216,5 @@ function isHexadecimal (text) {
     return (result !== null);
 }
 
-changePage(sectionQuizzQuestions);
+changePages("quizzes-list", "quizz-questions");
 drawQuizzQuestions();

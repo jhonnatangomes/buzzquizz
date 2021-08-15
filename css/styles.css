@@ -308,7 +308,12 @@ button {
 
 .quizz-create section {
     text-align: center;
+    margin-top: 70px;
 }
+
+/* .basic-info, .quizz-questions, .quizz-levels, .quizz-success {
+    margin-top: 0px;
+} */
 
 .quizz-create span {
     font-weight: bold;
@@ -456,10 +461,6 @@ button {
 
 
 @media (max-width: 1100px) {
-    
-    main {
-        margin-top: 50px;
-    }
 
     .container-user-quizzes {
         margin: 38px 0;
@@ -574,6 +575,10 @@ button {
     .back-home-button {
         font-size: 18px;
     }    
+
+    .quizz-create {
+        margin-top: 37px;
+    }
 
     .quizz-create span {
         font-size: 20px;
