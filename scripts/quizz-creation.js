@@ -249,13 +249,15 @@ const checkAllQuizzLevels = () => {
 
     document.querySelector(".percentage-0-not-found").classList.add("hidden");
 
-    if (levels.length === Number(numLevels) && levelPercentages.includes("0")) {
+    const includedZeroPercentage = () => levels.some(e => e.minValue === 0);
+    
+    if (levels.length === Number(numLevels) && includedZeroPercentage()/*levelPercentages.includes("0")*/) {
         console.log("Enviando quizz ao servidor")
     }
     else {
         levels = [];
-        if (!levelPercentages.includes("0")) document.querySelector(".percentage-0-not-found").classList.remove("hidden");
-        levelPercentages = [];
+        if (!includedZeroPercentage()) document.querySelector(".percentage-0-not-found").classList.remove("hidden");
+        //levelPercentages = [];
     };
 }
 
@@ -298,7 +300,7 @@ function checkQuizzLevels(select) {
             title: titleLevel,
             image: urlImgLevel,
             text: descriptionLevel,
-            minValue: minPorcentageCorrect,
+            minValue: Number(minPorcentageCorrect),
         }
         console.log(level);
         levels.push(level);
@@ -306,7 +308,7 @@ function checkQuizzLevels(select) {
     }
 
 
-    levelPercentages.push(minPorcentageCorrect);
+    //levelPercentages.push(minPorcentageCorrect);
 
 }
 
