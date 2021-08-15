@@ -211,11 +211,26 @@ function returnToHomeScreen() {
     showingResult = false;
 }
 
-function changePages(pageToHide, pageToShow) {
-    const toHide = document.querySelector(`.${pageToHide}`);
+// function changePages(pageToHide, pageToShow) {
+//     const toHide = document.querySelector(`.${pageToHide}`);
+//     const toShow = document.querySelector(`.${pageToShow}`);
+
+//     toHide.classList.add("hidden");
+//     toShow.classList.remove("hidden");
+//     setTimeout(window.scrollTo, 1, {
+//         top: 0, left: 0, behavior: 'auto'
+//     });
+// }
+
+function changePages(pageToShow) {
+    //const toHide = document.querySelector(`.${pageToHide}`);
     const toShow = document.querySelector(`.${pageToShow}`);
 
-    toHide.classList.add("hidden");
+    document.querySelectorAll("main, section").forEach(e => e.classList.add("hidden"));
+
+    //toHide.classList.add("hidden");
+    
+    toShow.parentNode.classList.remove("hidden");
     toShow.classList.remove("hidden");
     setTimeout(window.scrollTo, 1, {
         top: 0, left: 0, behavior: 'auto'
