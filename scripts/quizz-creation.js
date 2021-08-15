@@ -4,16 +4,9 @@ const sectionQuizzQuestions = document.querySelector(".quizz-questions");
 const sectionQuizzLevels = document.querySelector(".quizz-levels");
 const sectionQuizzSuccess = document.querySelector(".quizz-success");
 
-let title, titleImageUrl, numQuestions = 3, numLevels;
+let title, titleImageUrl, numQuestions = 3, numLevels = 4;
 
 let questions = [], listLevels = [];
-
-// function changePage(page) {
-//     document.querySelectorAll("main section").forEach(e => e.classList.add("hidden"));
-//     window.scrollTo({top: 0, left: 0, behavior: 'auto'}); /*teste*/
-//     mainQuizzCreate.classList.remove("hidden");
-//     page.classList.remove("hidden");
-// }
 
 /*                 General functions                  */
 function toggleCollapsed(select) {
@@ -65,8 +58,6 @@ function checkBasicInfo() {
 
     if (!hasError) {
         sectionBasicInfo.querySelectorAll("p").forEach(e => {e.classList.add("hidden")});
-        //changePage(sectionQuizzQuestions);
-        //drawQuizzQuestions();
         changePages("basic-info", "quizz-questions");
         drawQuizzQuestions();
     }
@@ -221,7 +212,7 @@ function drawQuizzLevels() {
         sectionQuizzLevels.innerHTML += `
         <div class="container-create">
             <div class="collapsible-box closed" onclick="toggleCollapsed(this)">
-                <p class="level">Nível ${i}</p>
+                <span class="level">Nível ${i}</span>
                 <img src="assets/edit_icon.png" alt="Edite a pergunta">
             </div>
             <div class="content">
@@ -241,5 +232,5 @@ function checkQuizzLevels() {
 }
 
 
-changePages("quizzes-list", "quizz-questions");
-drawQuizzQuestions();
+changePages("quizzes-list", "quizz-levels");
+drawQuizzLevels();

@@ -375,12 +375,12 @@ button {
     height: 24px;
     cursor: pointer;
     opacity: 1;
-    transition: 0.6s ease-out;
+    transition: 0.6s linear;
 }
 
 .closed span {
     margin-bottom: 10px;
-    transition: 0.5s ease-out;
+    transition: 0.5s linear;
 }
 
 .closed {
@@ -389,29 +389,21 @@ button {
     align-items: center;
 }
 
-.quizz-levels span {
-    margin-bottom: 43px;
-}
-
-.quizz-levels .container-create {
-    padding: 27px 20px 14px 17px;
-}
 
 .level {
     font-weight: bold;
     font-size: 20px;
 }
 
-.quizz-levels .container-create input:nth-child(2) {
-    margin-top: 12px;
+.quizz-levels input {
+    margin-bottom: 12px;
 }
 
-.container-create.closed {
-    padding: 20px;
+.quizz-levels input:last-child {
+    margin-bottom: 0px;
 }
 
 .finish-quizz {
-    margin-top: 48px;
     width: 324px;
     height: 54px;
 }
@@ -593,6 +585,7 @@ button {
     }
 
     .default-button {
+        margin: 48px 0;
         font-size: 18px;
     }
 
