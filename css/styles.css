@@ -308,7 +308,6 @@ button {
 
 .quizz-create section {
     text-align: center;
-    /* margin-top: 0px; */
 }
 
 .quizz-create span {
@@ -328,7 +327,6 @@ button {
 .quizz-create input {
     width: 100%;
     height: 46px;
-    margin-bottom: 17px;
     border-radius: 5px;
     border: 1px solid #D1D1D1;
     font-size: 20px;
@@ -359,8 +357,12 @@ button {
     font-size: 20px;
 }
 
-.info-question, .answer, .answer {
+.info-question, .answer {
    margin-bottom: 15px;
+}
+
+.info-question div, .answer div{
+    margin-bottom: 14px;
 }
 
 .box-question.closed img {
@@ -438,13 +440,8 @@ button {
 }
 
 .content-question {
-    max-height: 0;
     overflow: hidden;
     transition: 0.6s ease-out;
-}
-
-.info-question {
-    margin-top: 12px;
 }
 
 .invalid-input {
@@ -457,8 +454,13 @@ button {
 }
 
 
+
 @media (max-width: 1100px) {
     
+    main {
+        margin-top: 50px;
+    }
+
     .container-user-quizzes {
         margin: 38px 0;
     }
@@ -572,10 +574,6 @@ button {
     .back-home-button {
         font-size: 18px;
     }    
-
-    .quizz-create section {
-        /*margin-top: 37px;*/
-    }
 
     .quizz-create span {
         font-size: 20px;
