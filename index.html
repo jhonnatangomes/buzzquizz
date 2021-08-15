@@ -21,17 +21,17 @@
                 <div>
                     <span>Você não criou nenhum quizz ainda :(</span>
                 </div>
-                <button class="create-quizz" onclick="changePages('quizzes-list', 'basic-info');">Criar Quizz</button>
+                <button class="create-quizz" onclick="changePages('basic-info');">Criar Quizz</button>
             </div>
     
             <div class="your-quizzes hidden">
                 <div class="container-title-your-quizzes">
                     <span class="title">Seus Quizzes</span>
-                    <ion-icon name="add-circle"></ion-icon>
+                    <ion-icon name="add-circle" onclick="changePages('basic-info');"></ion-icon>
                 </div>
     
                 <div class="quizzes">
-                    <div class="quizz">
+                    <!-- <div class="quizz">
                         <img src="assets/potterhead.png" alt="Potterhead">
                         <div>
                             O quão Potterhead é você?
@@ -42,7 +42,7 @@
                         <div>
                             É ex-BBB ou ex-De férias com o Ex?
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </section>

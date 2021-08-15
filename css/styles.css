@@ -456,6 +456,10 @@ button {
     max-height: 850px;
 }
 
+ion-icon {
+    cursor: pointer;
+}
+
 @media (max-width: 1100px) {
 
     .container-user-quizzes {

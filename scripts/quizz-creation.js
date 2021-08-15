@@ -28,83 +28,29 @@ function isHexadecimal (text) {
 }
 
 function sendQuizzServer() {
-    // const quizzObject = {
-    //     title: title,
-    //     image: titleImageUrl,
-    //     questions: questions,
-    //     levels: levels
-    // };
-
-    const quizzObject = {"title": "Por que é difícil se comunicar pelo google meet?",
-    "image": "https://play-lh.googleusercontent.com/GBYSf20osBl2CRHbjGOyaOG5kQ3G4xbRau-dzScU9ozuXQJtnUZPkR3IqEDOo5OiVgU",
-    "questions": [
-        {
-            "title": "POr que o google meet é chato?",
-            "color": "#FFFFFF",
-            "answers": [
-                {
-                    "text": "Porque sim",
-                    "image": "https://play-lh.googleusercontent.com/GBYSf20osBl2CRHbjGOyaOG5kQ3G4xbRau-dzScU9ozuXQJtnUZPkR3IqEDOo5OiVgU",
-                    "isCorrectAnswer": true
-                },
-                {
-                    "text": "Porque não",
-                    "image": "https://play-lh.googleusercontent.com/GBYSf20osBl2CRHbjGOyaOG5kQ3G4xbRau-dzScU9ozuXQJtnUZPkR3IqEDOo5OiVgU",
-                    "isCorrectAnswer": false
-                }
-            ]
-        },
-        {
-            "title": "POr que o google meet é chato?",
-            "color": "#FFFFFF",
-            "answers": [
-                {
-                    "text": "Porque sim",
-                    "image": "https://play-lh.googleusercontent.com/GBYSf20osBl2CRHbjGOyaOG5kQ3G4xbRau-dzScU9ozuXQJtnUZPkR3IqEDOo5OiVgU",
-                    "isCorrectAnswer": true
-                },
-                {
-                    "text": "Porque não",
-                    "image": "https://play-lh.googleusercontent.com/GBYSf20osBl2CRHbjGOyaOG5kQ3G4xbRau-dzScU9ozuXQJtnUZPkR3IqEDOo5OiVgU",
-                    "isCorrectAnswer": false
-                }
-            ]
-        },
-        {
-            "title": "POr que o google meet é chato?",
-            "color": "#FFFFFF",
-            "answers": [
-                {
-                    "text": "Porque sim",
-                    "image": "https://play-lh.googleusercontent.com/GBYSf20osBl2CRHbjGOyaOG5kQ3G4xbRau-dzScU9ozuXQJtnUZPkR3IqEDOo5OiVgU",
-                    "isCorrectAnswer": true
-                },
-                {
-                    "text": "Porque não",
-                    "image": "https://play-lh.googleusercontent.com/GBYSf20osBl2CRHbjGOyaOG5kQ3G4xbRau-dzScU9ozuXQJtnUZPkR3IqEDOo5OiVgU",
-                    "isCorrectAnswer": false
-                }
-            ]
-        }
-    ],
-    "levels": [
-        {
-            "title": "Voce nao acha o google meet chato",
-            "image": "https://play-lh.googleusercontent.com/GBYSf20osBl2CRHbjGOyaOG5kQ3G4xbRau-dzScU9ozuXQJtnUZPkR3IqEDOo5OiVgU",
-            "text": "Google meet é muito chato de usar. Me fez perder tempo",
-            "minValue": 0
-        },
-        {
-            "title": "Voce acha o google meet chato",
-            "image": "https://play-lh.googleusercontent.com/GBYSf20osBl2CRHbjGOyaOG5kQ3G4xbRau-dzScU9ozuXQJtnUZPkR3IqEDOo5OiVgU",
-            "text": "Google meet é muito chato de usar. Me fez perder tempo",
-            "minValue": 25
-        }
-    ]}
+    const quizzObject = {
+        title: title,
+        image: titleImageUrl,
+        questions: questions,
+        levels: levels
+    };
 
     const promise = axios.post(URL_API, quizzObject);
     console.log(promise);
     promise.then(showQuizzSucess);
+}
+
+function storeQuizzId(id) {
+    let ids = JSON.parse(localStorage.getItem("ids"));
+
+    if(ids === null){
+        ids = [];
+    }
+
+    ids.push(id);
+    const serializedIds = JSON.stringify(ids);
+
+    localStorage.setItem("ids", serializedIds);
 }
 
 /*                 Basic info functions                  */
@@ -140,7 +86,8 @@ function checkBasicInfo() {
 
     if (!hasError) {
         sectionBasicInfo.querySelectorAll("p").forEach(e => {e.classList.add("hidden")});
-        changePages("basic-info", "quizz-questions");
+        // changePages("basic-info", "quizz-questions");
+        changePages("quizz-questions");
         drawQuizzQuestions();
     }
 }
@@ -220,7 +167,8 @@ const checkAllQuizzQuestions = () => {
     allQuestions.forEach(e => checkQuizzQuestions(e));
 
     if (questions.length === Number(numQuestions)){ 
-        changePages("quizz-questions", "quizz-levels");
+        // changePages("quizz-questions", "quizz-levels");
+        changePages("quizz-levels");
         drawQuizzLevels();
     }
     else questions = [];
@@ -396,7 +344,9 @@ function checkQuizzLevels(select) {
 }
 
 function showQuizzSucess(response) {
-    changePages("quizz-levels", "quizz-success");
+    storeQuizzId(response.data.id);
+    // changePages("quizz-levels", "quizz-success");
+    changePages("quizz-success");
     //const quizzSuccess = document.querySelector(".quizz-success .quizz");
     sectionQuizzSuccess.innerHTML = `
     <span>Seu quizz está pronto!</span>
@@ -423,7 +373,8 @@ function accessQuizz(id) {
 
 // changePages("quizzes-list", "quizz-questions");
 // drawQuizzQuestions();
-sendQuizzServer();
+//sendQuizzServer();
 
-changePages("quizzes-list", "quizz-success");
+// changePages("quizzes-list", "quizz-success");
+//changePages("quizz-success");
 // drawQuizzQuestions();
