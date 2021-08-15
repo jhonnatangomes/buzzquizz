@@ -1,6 +1,6 @@
 const URL_API = "https://mock-api.bootcamp.respondeai.com.br/api/v3/buzzquizz/quizzes";
 let questionIdPrevious = 0, questionsAnswered = 0, correctAnswers = 0, score = 0, showingResult = false;
-let levels;
+let levelsResponse;
 
 function getQuizzes() {
     const promise = axios.get(URL_API);
@@ -86,7 +86,7 @@ function openQuizzPage(response) {
         
     }
 
-    levels = response.data.levels;
+    levelsResponse = response.data.levels;
 
     changePages("quizzes-list", "quizz-page");
     

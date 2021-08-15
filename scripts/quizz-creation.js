@@ -4,9 +4,9 @@ const sectionQuizzQuestions = document.querySelector(".quizz-questions");
 const sectionQuizzLevels = document.querySelector(".quizz-levels");
 const sectionQuizzSuccess = document.querySelector(".quizz-success");
 
-let title, titleImageUrl, numQuestions = 3, numLevels = 4;
+let title, titleImageUrl, numQuestions = 3, numLevels = 2;
 
-let questions = [], listLevels = [];
+let questions = [], levels = [];
 
 /*                 General functions                  */
 function toggleCollapsed(select) {
@@ -217,20 +217,76 @@ function drawQuizzLevels() {
             </div>
             <div class="content">
                 <input type="text" class="level-title" placeholder="Título do nível">
+                <p class="error hidden">O título requer pelo menos 10 caracteres</p>
                 <input type="text" class="minimal-percentage" placeholder="% de acerto mínima">
+                <p class="error hidden">A porcentagem de acerto mínima deve ser um número entre 0 e 100</p>
                 <input type="text" class="url-level-image" placeholder="URL da imagem do nível">
+                <p class="error hidden">A URL tem formato inválido</p>
                 <input type="text" class="level-description" placeholder="Descrição do nível">
+                <p class="error hidden">O descrição requer pelo menos 30 caracteres</p>
             </div>
         </div>`
     }
-    sectionQuizzLevels.innerHTML += `<button class="default-button finish-quizz">Finalizar Quizz</button>`
+    sectionQuizzLevels.innerHTML += `<button class="default-button finish-quizz" onclick="checkAllQuizzLevels()">Finalizar Quizz</button>`
 }
 
-function checkQuizzLevels() {
+function checkQuizzLevels(select) {
     let hasError = false;
     let level = {};
+
+    select.querySelectorAll("p").forEach(e => {e.classList.add("hidden");});
+    select.querySelectorAll("input").forEach(e => {e.classList.remove("invalid-input")});
+
+    const titleLevel = select.querySelector(".level-title").value;
+    const minPorcentageCorrect = select.querySelector(".minimal-percentage").value;
+    const urlImgLevel = select.querySelector(".url-level-image").value;
+    const descriptionLevel = select.querySelector(".level-description").value;
+
+    if (titleLevel.length < 10) {
+        select.querySelector(".question-text").nextElementSibling.classList.remove("hidden");
+        select.querySelector(".question-text").classList.add("invalid-input");
+        hasError = true;
+    }
+    if (minPorcentageCorrect < 0 || minPorcentageCorrect > 100) {
+        select.querySelector(".minimal-percentage").nextElementSibling.classList.remove("hidden");
+        select.querySelector(".minimal-percentage").classList.add("invalid-input");
+        hasError = true;
+    }
+    if (!isValidURL(urlImgLevel)) {
+        select.querySelector(".url-level-image").nextElementSibling.classList.remove("hidden");
+        select.querySelector(".url-level-image").classList.add("invalid-input");
+        hasError = true;
+    }
+    if (descriptionLevel.length < 30){
+        select.querySelector(".level-description").nextElementSibling.classList.remove("hidden");
+        select.querySelector(".level-description").classList.add("invalid-input");
+        hasError = true;
+    }
+    //if ()
+
+    if (!hasError && answers.length > 0) {
+        level = {
+            title: titleLevel,
+            image: urlImgLevel,
+            text: descriptionLevel,
+            minValue: minPorcentageCorrect,
+        }
+        console.log(level);
+        levels.push(level);
+        console.log(levels);
+    }
+
 }
 
+const checkAllQuizzLevels = () => {
+    const allLevels = document.querySelector(".quizz-levels").querySelectorAll(".content");
+    allLevels.forEach(e => checkQuizzLevels(e));
+
+    if (levels.length === Number(numLevels)) {
+        console.log("Enviando quizz ao servidor")
+    }
+    else levels = [];
+}
 
 changePages("quizzes-list", "quizz-levels");
 drawQuizzLevels();
