@@ -193,6 +193,7 @@ function checkQuizzQuestions(select) {
             color: backgroundColorQuestion,
             answers: answers,
         }
+        console.log(question);
         questions.push(question);
     }
 }
@@ -201,7 +202,7 @@ const checkAllQuizzQuestions = () => {
     const allQuestions = sectionQuizzQuestions.querySelectorAll(".content-question");
     allQuestions.forEach(e => checkQuizzQuestions(e));
 
-    if (questions.length === numQuestions) changePage(sectionQuizzLevels);
+    if (questions.length === Number(numQuestions)) changePages("quizz-questions", "quizz-levels");
     else questions = [];
 }
 
@@ -216,5 +217,5 @@ function isHexadecimal (text) {
     return (result !== null);
 }
 
-changePages("quizzes-list", "quizz-questions");
-drawQuizzQuestions();
+//changePages("quizzes-list", "quizz-questions");
+//drawQuizzQuestions();

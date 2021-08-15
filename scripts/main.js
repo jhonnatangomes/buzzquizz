@@ -92,14 +92,6 @@ function openQuizzPage(response) {
     
 }
 
-function createQuizz() {
-    const quizzesList = document.querySelector(".quizzes-list");
-    const quizzCreate = document.querySelector(".quizz-create");
-
-    quizzesList.classList.add("hidden");
-    quizzCreate.classList.remove("hidden");
-}
-
 function shuffle(array) {
     for(let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i+1));
