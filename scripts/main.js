@@ -31,7 +31,13 @@ function showQuizzes(response) {
 }
 
 function selectQuizz(element) {
-    const elementId = element.id;
+    let elementId;
+    if(typeof(element) === "number"){
+        elementId = element;
+    }
+    else {
+        elementId = element.id;
+    }
     const promise = axios.get(`${URL_API}/${elementId}`);
 
     promise.then(openQuizzPage);

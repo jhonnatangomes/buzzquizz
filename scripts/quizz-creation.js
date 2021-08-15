@@ -28,14 +28,82 @@ function isHexadecimal (text) {
 }
 
 function sendQuizzServer() {
-    const quizzObject = {
-        title: title,
-        image: titleImageUrl,
-        questions: questions,
-        levels: levels
-    };
+    // const quizzObject = {
+    //     title: title,
+    //     image: titleImageUrl,
+    //     questions: questions,
+    //     levels: levels
+    // };
+
+    const quizzObject = {"title": "Por que é difícil se comunicar pelo google meet?",
+    "image": "https://play-lh.googleusercontent.com/GBYSf20osBl2CRHbjGOyaOG5kQ3G4xbRau-dzScU9ozuXQJtnUZPkR3IqEDOo5OiVgU",
+    "questions": [
+        {
+            "title": "POr que o google meet é chato?",
+            "color": "#FFFFFF",
+            "answers": [
+                {
+                    "text": "Porque sim",
+                    "image": "https://play-lh.googleusercontent.com/GBYSf20osBl2CRHbjGOyaOG5kQ3G4xbRau-dzScU9ozuXQJtnUZPkR3IqEDOo5OiVgU",
+                    "isCorrectAnswer": true
+                },
+                {
+                    "text": "Porque não",
+                    "image": "https://play-lh.googleusercontent.com/GBYSf20osBl2CRHbjGOyaOG5kQ3G4xbRau-dzScU9ozuXQJtnUZPkR3IqEDOo5OiVgU",
+                    "isCorrectAnswer": false
+                }
+            ]
+        },
+        {
+            "title": "POr que o google meet é chato?",
+            "color": "#FFFFFF",
+            "answers": [
+                {
+                    "text": "Porque sim",
+                    "image": "https://play-lh.googleusercontent.com/GBYSf20osBl2CRHbjGOyaOG5kQ3G4xbRau-dzScU9ozuXQJtnUZPkR3IqEDOo5OiVgU",
+                    "isCorrectAnswer": true
+                },
+                {
+                    "text": "Porque não",
+                    "image": "https://play-lh.googleusercontent.com/GBYSf20osBl2CRHbjGOyaOG5kQ3G4xbRau-dzScU9ozuXQJtnUZPkR3IqEDOo5OiVgU",
+                    "isCorrectAnswer": false
+                }
+            ]
+        },
+        {
+            "title": "POr que o google meet é chato?",
+            "color": "#FFFFFF",
+            "answers": [
+                {
+                    "text": "Porque sim",
+                    "image": "https://play-lh.googleusercontent.com/GBYSf20osBl2CRHbjGOyaOG5kQ3G4xbRau-dzScU9ozuXQJtnUZPkR3IqEDOo5OiVgU",
+                    "isCorrectAnswer": true
+                },
+                {
+                    "text": "Porque não",
+                    "image": "https://play-lh.googleusercontent.com/GBYSf20osBl2CRHbjGOyaOG5kQ3G4xbRau-dzScU9ozuXQJtnUZPkR3IqEDOo5OiVgU",
+                    "isCorrectAnswer": false
+                }
+            ]
+        }
+    ],
+    "levels": [
+        {
+            "title": "Voce nao acha o google meet chato",
+            "image": "https://play-lh.googleusercontent.com/GBYSf20osBl2CRHbjGOyaOG5kQ3G4xbRau-dzScU9ozuXQJtnUZPkR3IqEDOo5OiVgU",
+            "text": "Google meet é muito chato de usar. Me fez perder tempo",
+            "minValue": 0
+        },
+        {
+            "title": "Voce acha o google meet chato",
+            "image": "https://play-lh.googleusercontent.com/GBYSf20osBl2CRHbjGOyaOG5kQ3G4xbRau-dzScU9ozuXQJtnUZPkR3IqEDOo5OiVgU",
+            "text": "Google meet é muito chato de usar. Me fez perder tempo",
+            "minValue": 25
+        }
+    ]}
 
     const promise = axios.post(URL_API, quizzObject);
+    console.log(promise);
     promise.then(showQuizzSucess);
 }
 
@@ -266,7 +334,8 @@ const checkAllQuizzLevels = () => {
     const includedZeroPercentage = () => levels.some(e => e.minValue === 0);
     
     if (levels.length === Number(numLevels) && includedZeroPercentage()/*levelPercentages.includes("0")*/) {
-        console.log("Enviando quizz ao servidor")
+        console.log("Enviando quizz ao servidor");
+        sendQuizzServer();
     }
     else {
         levels = [];
@@ -326,14 +395,35 @@ function checkQuizzLevels(select) {
 
 }
 
-function showQuizzSucess() {
+function showQuizzSucess(response) {
     changePages("quizz-levels", "quizz-success");
+    //const quizzSuccess = document.querySelector(".quizz-success .quizz");
+    sectionQuizzSuccess.innerHTML = `
+    <span>Seu quizz está pronto!</span>
+    <div class="quizz">
+        <img src="${titleImageUrl}" alt="${title}">
+        <div>
+            ${title}
+        </div>
+    </div>
+    <div class="container-buttons">
+        <button class="default-button access-quizz-button" onclick="selectQuizz(${response.data.id});">Acessar Quizz</button>
+        <p class="back-home-button" onclick="returnToHomeScreen();">Voltar para home</p>
+    </div>
+    `
 }
 
 
-changePages("quizzes-list", "quizz-levels"); 
-drawQuizzLevels();
+function accessQuizz(id) {
+    
+}
+//changePages("quizzes-list", "quizz-levels"); 
+//drawQuizzLevels();
 
 
 // changePages("quizzes-list", "quizz-questions");
+// drawQuizzQuestions();
+sendQuizzServer();
+
+changePages("quizzes-list", "quizz-success");
 // drawQuizzQuestions();
