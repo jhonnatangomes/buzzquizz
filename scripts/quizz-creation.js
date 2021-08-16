@@ -52,6 +52,7 @@ function sendQuizzServer() {
         promise = axios.post(URL_API, quizzObject);
     }
     console.log(promise);
+    isLoading(true);
     promise.then(showQuizzSucess);
 }
 
@@ -199,7 +200,6 @@ const checkAllQuizzQuestions = () => {
 }
 
 function checkQuizzQuestions(select) {
-
     let hasError = false;
     let question = {};
     let answers = [];
@@ -316,7 +316,6 @@ const checkAllQuizzLevels = () => {
     else {
         levels = [];
         if (!includedZeroPercentage()) document.querySelector(".percentage-0-not-found").classList.remove("hidden");
-        //levelPercentages = [];
     };
 }
 
@@ -365,10 +364,7 @@ function checkQuizzLevels(select) {
         levels.push(level);
         console.log(levels);
     }
-
-
     //levelPercentages.push(minPorcentageCorrect);
-
 }
 
 function showQuizzSucess(response) {
@@ -389,6 +385,7 @@ function showQuizzSucess(response) {
         <p class="back-home-button" onclick="returnToHomeScreen();">Voltar para home</p>
     </div>
     `
+    isLoading(false);
 }
 
 

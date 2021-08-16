@@ -3,11 +3,16 @@ let questionIdPrevious = 0, questionsAnswered = 0, correctAnswers = 0, score = 0
 let levelsResponse;
 let quizz;
 
+const isLoading = (state) => {
+    if (state) document.querySelector(".loader").classList.remove("hidden");
+    else document.querySelector(".loader").classList.add("hidden");
+}
+
 function getQuizzes() {
+    isLoading(true);
     const promise = axios.get(URL_API);
     promise.then(showQuizzes);
 }
-
 
 function getQuizz(element, functionToCall) {
     let elementId;
@@ -18,6 +23,7 @@ function getQuizz(element, functionToCall) {
         elementId = element.id;
     }
 
+    isLoading(true);
     const promise = axios.get(`${URL_API}/${elementId}`);
     promise.then(functionToCall);
 }
@@ -47,7 +53,7 @@ function showQuizzes(response) {
             `
         } 
     }
-    
+    isLoading(false);
 }
 
 function checkYourQuizzes() {
@@ -70,15 +76,18 @@ function checkYourQuizzes() {
         yourQuizzes.classList.add("hidden");
         console.log("Era pra mostrar a tela de nenhum quiz criado");
     }
+    isLoading(false);
 }
 
 function showYourQuizzes(response) {
     const yourQuizzes = document.querySelector(".your-quizzes .quizzes");
     yourQuizzes.innerHTML += `
     <div class="quizz">
-        <img src="${response.data.image}" alt="${response.data.title}" onclick="getQuizz(${response.data.id}, openQuizzPage)">
-        <div class="quizz-name">
-            ${response.data.title}
+        <div class="quizz-content" onclick="getQuizz(${response.data.id}, openQuizzPage)">
+            <img src="${response.data.image}" alt="${response.data.title}">
+            <div class="quizz-name">
+                ${response.data.title}
+            </div>
         </div>
         <div class="edit-quizz-buttons">
             <ion-icon name="create-outline" onclick="getQuizz(${response.data.id}, fillBasicInfoInputs)"></ion-icon>
@@ -86,6 +95,7 @@ function showYourQuizzes(response) {
         </div>
     </div>
     `
+    isLoading(false);
 }
 
 function confirmDeleteQuizz(id) {
@@ -113,6 +123,7 @@ function deleteQuizz(id) {
         const serializedIds = JSON.stringify(ids);
         localStorage.removeItem("ids");
         localStorage.setItem("ids", serializedIds);
+        isLoading(true);
         promise.then(checkYourQuizzes);
     }
 }
@@ -126,6 +137,7 @@ function fillBasicInfoInputs(response) {
     sectionBasicInfo.querySelector(".number-levels").value = quizz.levels.length;
 
     changePages("basic-info");
+    isLoading(false);
 }
 
 function fillQuizzQuestionsInput() {
@@ -203,9 +215,8 @@ function openQuizzPage(response) {
 
     levelsResponse = response.data.levels;
 
-    //changePages("quizzes-list", "quizz-page");
+    isLoading(false);
     changePages("quizz-page");
-    
 }
 
 function shuffle(array) {
@@ -245,7 +256,6 @@ function selectAnswer(element, questionId, questionsLength) {
         questionIdPrevious = questionId;
         setTimeout(scrollToNextQuestion, 2000, questionId);
     }
-
     showResult(questionsLength);
 }
 
@@ -281,7 +291,6 @@ function showResult(questionsLength) {
                 <p class="back-home-button" onclick="returnToHomeScreen();">Voltar para home</p>
             </div>
             `
-
             showingResult = true;
         }
     }
@@ -312,7 +321,6 @@ function restartQuizz() {
 }
 
 function returnToHomeScreen() {
-    // changePages("quizz-page", "quizzes-list");
     changePages("quizzes-list");
 
     questionsAnswered = 0;
@@ -322,24 +330,10 @@ function returnToHomeScreen() {
     showingResult = false;
 }
 
-// function changePages(pageToHide, pageToShow) {
-//     const toHide = document.querySelector(`.${pageToHide}`);
-//     const toShow = document.querySelector(`.${pageToShow}`);
-
-//     toHide.classList.add("hidden");
-//     toShow.classList.remove("hidden");
-//     setTimeout(window.scrollTo, 1, {
-//         top: 0, left: 0, behavior: 'auto'
-//     });
-// }
-
 function changePages(pageToShow) {
-    //const toHide = document.querySelector(`.${pageToHide}`);
     const toShow = document.querySelector(`.${pageToShow}`);
 
     document.querySelectorAll("main, section").forEach(e => e.classList.add("hidden"));
-
-    //toHide.classList.add("hidden");
 
     if(toShow.tagName === "SECTION") {
         toShow.parentNode.classList.remove("hidden");
@@ -356,7 +350,6 @@ function changePages(pageToShow) {
 
     toShow.classList.remove("hidden");
     
-
     setTimeout(window.scrollTo, 1, {
         top: 0, left: 0, behavior: 'auto'
     });
