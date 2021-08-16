@@ -35,8 +35,6 @@ function sendQuizzServer() {
         levels: levels
     };
 
-    // const data = [title, titleImageUrl, questions, levels];
-    console.log(quizzObject);
 
     let promise;
     if(isEditing){
@@ -51,7 +49,6 @@ function sendQuizzServer() {
     else{
         promise = axios.post(URL_API, quizzObject);
     }
-    console.log(promise);
     isLoading(true);
     promise.then(showQuizzSucess);
 }
@@ -107,7 +104,6 @@ function checkBasicInfo() {
 
     if (!hasError) {
         sectionBasicInfo.querySelectorAll("p").forEach(e => {e.classList.add("hidden")});
-        // changePages("basic-info", "quizz-questions");
         changePages("quizz-questions");
         drawQuizzQuestions();
     }
@@ -192,7 +188,6 @@ const checkAllQuizzQuestions = () => {
     allQuestions.forEach(e => checkQuizzQuestions(e));
 
     if (questions.length === Number(numQuestions)){ 
-        // changePages("quizz-questions", "quizz-levels");
         changePages("quizz-levels");
         drawQuizzLevels();
     }
@@ -210,7 +205,7 @@ function checkQuizzQuestions(select) {
     const questionText = select.querySelector(".question-text").value;
     const questionBackgroundColor = select.querySelector(".question-background-color").value;
 
-    if (questionText.length < 20 || questionText.length < 1) {
+    if (questionText.length < 20) {
         select.querySelector(".question-text").nextElementSibling.classList.remove("hidden");
         select.querySelector(".question-text").classList.add("invalid-input");
         hasError = true;
@@ -314,8 +309,8 @@ const checkAllQuizzLevels = () => {
         sendQuizzServer();
     }
     else {
-        levels = [];
         if (!includedZeroPercentage()) document.querySelector(".percentage-0-not-found").classList.remove("hidden");
+        levels = [];
     };
 }
 
@@ -327,7 +322,7 @@ function checkQuizzLevels(select) {
     select.querySelectorAll("input").forEach(e => {e.classList.remove("invalid-input")});
 
     const titleLevel = select.querySelector(".level-title").value;
-    const minPorcentageCorrect = select.querySelector(".minimal-percentage").value;
+    const minPercentageCorrect = select.querySelector(".minimal-percentage").value;
     const urlImgLevel = select.querySelector(".url-level-image").value;
     const descriptionLevel = select.querySelector(".level-description").value;
 
@@ -336,7 +331,7 @@ function checkQuizzLevels(select) {
         select.querySelector(".level-title").classList.add("invalid-input");
         hasError = true;
     }
-    if (minPorcentageCorrect < 0 || minPorcentageCorrect > 100 || minPorcentageCorrect === "" || isNaN(minPorcentageCorrect)) {
+    if (minPercentageCorrect < 0 || minPercentageCorrect > 100 || minPercentageCorrect === "" || isNaN(minPercentageCorrect)) {
         select.querySelector(".minimal-percentage").nextElementSibling.classList.remove("hidden");
         select.querySelector(".minimal-percentage").classList.add("invalid-input");
         hasError = true;
@@ -351,30 +346,24 @@ function checkQuizzLevels(select) {
         select.querySelector(".level-description").classList.add("invalid-input");
         hasError = true;
     }
-    //if ()
 
     if (!hasError) {
         level = {
             title: titleLevel,
             image: urlImgLevel,
             text: descriptionLevel,
-            minValue: Number(minPorcentageCorrect),
+            minValue: Number(minPercentageCorrect),
         }
-        console.log(level);
         levels.push(level);
-        console.log(levels);
     }
-    //levelPercentages.push(minPorcentageCorrect);
 }
 
 function showQuizzSucess(response) {
     storeQuizzId(response.data.id, response.data.key);
-    // changePages("quizz-levels", "quizz-success");
     changePages("quizz-success");
-    //const quizzSuccess = document.querySelector(".quizz-success .quizz");
     sectionQuizzSuccess.innerHTML = `
     <span>Seu quizz está pronto!</span>
-    <div class="quizz">
+    <div class="quizz" onclick="getQuizz(${response.data.id}, openQuizzPage);">
         <img src="${titleImageUrl}" alt="${title}">
         <div>
             ${title}
@@ -387,16 +376,3 @@ function showQuizzSucess(response) {
     `
     isLoading(false);
 }
-
-
-//changePages("quizzes-list", "quizz-levels"); 
-//drawQuizzLevels();
-
-
-// changePages("quizzes-list", "quizz-questions");
-// drawQuizzQuestions();
-//sendQuizzServer();
-
-// changePages("quizzes-list", "quizz-success");
-//changePages("quizz-success");
-// drawQuizzQuestions();

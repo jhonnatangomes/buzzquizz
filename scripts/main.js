@@ -1,5 +1,5 @@
 const URL_API = "https://mock-api.bootcamp.respondeai.com.br/api/v3/buzzquizz/quizzes";
-let questionIdPrevious = 0, questionsAnswered = 0, correctAnswers = 0, score = 0, showingResult = false;
+let questionsAnswered = 0, correctAnswers = 0, score = 0;
 let levelsResponse;
 let quizz;
 
@@ -58,23 +58,19 @@ function showQuizzes(response) {
 
 function checkYourQuizzes() {
     const ids = JSON.parse(localStorage.getItem("ids"));
-    //const containerUserQuizzes = document.querySelectorAll(".container-user-quizzes > div");
     const noQuizzesCreated = document.querySelector(".no-quizzes-created");
     const yourQuizzes = document.querySelector(".your-quizzes");
     if(ids !== null && ids.length !== 0) {
         let idsOnly = [];
         ids.forEach(e => {idsOnly.push(e[0])});
-        //containerUserQuizzes.forEach(e => {e.classList.toggle("hidden")});
         noQuizzesCreated.classList.add("hidden");
         yourQuizzes.classList.remove("hidden");
         yourQuizzes.querySelector(".quizzes").innerHTML = "";
         idsOnly.forEach(id => getQuizz(id, showYourQuizzes));
-        console.log("Está mostrando a parte de quizzes");
     }
     if(ids !== null && ids.length === 0){
         noQuizzesCreated.classList.remove("hidden");
         yourQuizzes.classList.add("hidden");
-        console.log("Era pra mostrar a tela de nenhum quiz criado");
     }
     isLoading(false);
 }
@@ -238,7 +234,7 @@ function selectAnswer(element, questionId, questionsLength) {
 
         answers.forEach(function (answer) {
             if(!answer.classList.contains("selected-answer")){
-                answer.classList.add("blur-item")
+                answer.classList.add("blur-item");
             };
 
             if(answer.classList.contains("correct")){
@@ -253,7 +249,6 @@ function selectAnswer(element, questionId, questionsLength) {
         });
 
         questionsAnswered += 1;
-        questionIdPrevious = questionId;
         setTimeout(scrollToNextQuestion, 2000, questionId);
     }
     showResult(questionsLength);
@@ -274,25 +269,23 @@ function showResult(questionsLength) {
         score = Math.round(score);
         let levelAchieved = levelsResponse.filter((element) => score >= element.minValue);
         const quizzPage = document.querySelector(".quizz-page");
-        if(!showingResult) {
-            quizzPage.innerHTML += `
-            <section class="result" id="question${questionsLength + 1}">
-                <div class="result-header">
-                    ${score}% de acerto: ${levelAchieved[levelAchieved.length - 1].title}
-                </div>
-                <div class="result-container">
-                    <img src="${levelAchieved[levelAchieved.length - 1].image}">
-                    <span>${levelAchieved[levelAchieved.length - 1].text}</span>
-                </div>
-            </section>
-            
-            <div class="container-buttons">
-                <button class="default-button restart-quizz-button" onclick="restartQuizz();">Reiniciar Quizz</button>
-                <p class="back-home-button" onclick="returnToHomeScreen();">Voltar para home</p>
+        quizzPage.innerHTML += `
+        <section class="result" id="question${questionsLength + 1}">
+            <div class="result-header">
+                ${score}% de acerto: ${levelAchieved[levelAchieved.length - 1].title}
             </div>
+            <div class="result-container">
+                <img src="${levelAchieved[levelAchieved.length - 1].image}">
+                <span>${levelAchieved[levelAchieved.length - 1].text}</span>
+            </div>
+        </section>
+            
+        <div class="container-buttons">
+            <button class="default-button restart-quizz-button" onclick="restartQuizz();">Reiniciar Quizz</button>
+            <p class="back-home-button" onclick="returnToHomeScreen();">Voltar para home</p>
+        </div>
             `
-            showingResult = true;
-        }
+        
     }
 }
 
@@ -314,8 +307,6 @@ function restartQuizz() {
     questionsAnswered = 0;
     score = 0;
     correctAnswers = 0;
-    questionIdPrevious = 0;
-    showingResult = false;
 
     setTimeout(window.scrollTo, 1, 0, 0);
 }
@@ -326,8 +317,6 @@ function returnToHomeScreen() {
     questionsAnswered = 0;
     score = 0;
     correctAnswers = 0;
-    questionIdPrevious = 0;
-    showingResult = false;
 }
 
 function changePages(pageToShow) {

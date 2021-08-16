@@ -31,7 +31,7 @@
                 </div>
     
                 <div class="quizzes">
-                    <!-- <div class="quizz">
+                    <div class="quizz">
                         <img src="assets/potterhead.png" alt="Potterhead">
                         <div class="quizz-name">
                             O quão Potterhead é você?
@@ -50,7 +50,7 @@
                             <ion-icon name="create-outline"></ion-icon>
                             <ion-icon name="trash-outline" class="delete-quizz"></ion-icon>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </section>
@@ -71,14 +71,22 @@
         <section class="basic-info hidden">
             <span>Comece pelo começo</span>
             <div class="container-create">
-                <input type="text" class="your-quizz-title" placeholder="Título do seu quizz">
-                <p class="error title-error hidden">O título deve conter entre 20 e 65 caracteres</p>
-                <input type="text" class="url-img" placeholder="URL da imagem do seu quizz">
-                <p class="error url-error hidden">A URL informada não é válida</p>
-                <input type="text" class="number-questions" placeholder="Quantidade de perguntas do quizz">
+                <div>
+                    <input type="text" class="your-quizz-title" placeholder="Título do seu quizz">
+                    <p class="error title-error hidden">O título deve conter entre 20 e 65 caracteres</p>
+                </div>
+                <div>
+                    <input type="text" class="url-img" placeholder="URL da imagem do seu quizz">
+                    <p class="error url-error hidden">A URL informada não é válida</p>
+                </div>
+                <div>
+                    <input type="text" class="number-questions" placeholder="Quantidade de perguntas do quizz">
                 <p class="error questions-error hidden">O quizz deve ter no mínimo 3 perguntas</p>
-                <input type="text" class="number-levels" placeholder="Quantidade de níveis do quizz">
-                <p class="error levels-error hidden">O quizz deve ter no mínimo 2 níveis</p>
+                </div>
+                <div>
+                    <input type="text" class="number-levels" placeholder="Quantidade de níveis do quizz">
+                    <p class="error levels-error hidden">O quizz deve ter no mínimo 2 níveis</p>
+                </div>
             </div>
             <button class="default-button next-button" onclick="checkBasicInfo()">Prosseguir para criar perguntas</button>
         </section>

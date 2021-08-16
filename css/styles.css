@@ -165,18 +165,16 @@ button {
     width: 100%;
     height: 227px;
     position: absolute;
+    z-index: -1;
     
 }
 
 .quizz-title span, .question-header, .question-item p {
     text-align: center;
-    /* overflow-x: auto; 
-    overflow-y: auto; */
     overflow-wrap: anywhere;
 }
 
 .all-quizzes .quizz div {
-    /* overflow: auto; */
     overflow-wrap: anywhere;
 }
 
@@ -256,14 +254,13 @@ button {
 .result-header {
     width: 727px;
     height: 99px;
-    color: black;
+    color: #FFFFFF;
     font-weight: bold;
     font-size: 23px;
     background-color: #EC362D;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* overflow: auto; */
     overflow-wrap: anywhere;
 }
 
@@ -286,6 +283,7 @@ button {
     margin-right: 14px;
     width: 328px;
     height: 250px;
+    overflow-wrap: anywhere;
 }
 
 .container-buttons {
@@ -303,7 +301,8 @@ button {
     border: none;
     outline: none;
     cursor: pointer;
-}
+    margin-bottom: 35px;
+} 
 
 .back-home-button {
     color: #818181;
@@ -316,10 +315,6 @@ button {
     text-align: center;
     margin-top: 70px;
 }
-
-/* .basic-info, .quizz-questions, .quizz-levels, .quizz-success {
-    margin-top: 0px;
-} */
 
 .quizz-create span {
     font-weight: bold;
@@ -349,8 +344,8 @@ button {
     padding-left: 23px;
 }
 
-.quizz-create .basic-info input:first-child {
-    margin-top: 21px;
+.basic-info .container-create {
+    padding-top: 21px;
 }
 
 .container-create input::placeholder {
@@ -363,7 +358,6 @@ button {
     width: 352px;
     height: 54px;
     margin-top: 54px;
-    margin-bottom: 35px;
 }
 
 .container-create span {
@@ -390,7 +384,6 @@ button {
 
 .closed span {
     margin-bottom: 10px;
-    /* transition: 0.5s linear; */
 }
 
 .closed {
@@ -563,8 +556,6 @@ ion-icon {
     .quizz-title span, .question-header, .question-item p {
         width: 100%;
         text-align: center;
-        /* overflow-x: auto;
-        overflow-y: hidden; */
         overflow-wrap: anywhere;
     }
 
@@ -617,7 +608,6 @@ ion-icon {
         display: block;
         margin-top: 9px;
         width: 100%;
-        /* height: 96px; */
     }
 
     .result-container img {
@@ -656,7 +646,6 @@ ion-icon {
     }
 
     .default-button {
-        /* margin: 48px 0; */
         font-size: 18px;
     }
 
