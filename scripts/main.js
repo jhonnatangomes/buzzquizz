@@ -31,8 +31,11 @@ function showQuizzes(response) {
         ids = [];
     }
 
+    let idsOnly = [];
+    ids.forEach(e => {idsOnly.push(e[0])});
+
     for (let i = 0; i < response.data.length; i++){
-        if(!ids.includes(response.data[i].id)) {
+        if(!idsOnly.includes(response.data[i].id)) {
             quizzes.innerHTML += `
             <div class="quizz" id="${response.data[i].id}" onclick="getQuizz(this, openQuizzPage)">
                 <img src="${response.data[i].image}" alt="${response.data[i].title}">
@@ -48,27 +51,69 @@ function showQuizzes(response) {
 
 function checkYourQuizzes() {
     const ids = JSON.parse(localStorage.getItem("ids"));
-    const containerUserQuizzes = document.querySelectorAll(".container-user-quizzes > div");
-    if(ids !== null) {
-        containerUserQuizzes.forEach(e => e.classList.toggle("hidden"));
-        ids.forEach(id => getQuizz(id, showYourQuizzes));
+    //const containerUserQuizzes = document.querySelectorAll(".container-user-quizzes > div");
+    const noQuizzesCreated = document.querySelector(".no-quizzes-created");
+    const yourQuizzes = document.querySelector(".your-quizzes");
+    if(ids !== null && ids.length !== 0) {
+        let idsOnly = [];
+        ids.forEach(e => {idsOnly.push(e[0])});
+        //containerUserQuizzes.forEach(e => {e.classList.toggle("hidden")});
+        noQuizzesCreated.classList.add("hidden");
+        yourQuizzes.classList.remove("hidden");
+        yourQuizzes.querySelector(".quizzes").innerHTML = "";
+        idsOnly.forEach(id => getQuizz(id, showYourQuizzes));
+        console.log("Está mostrando a parte de quizzes");
+    }
+    if(ids.length === 0){
+        noQuizzesCreated.classList.remove("hidden");
+        yourQuizzes.classList.add("hidden");
+        console.log("Era pra mostrar a tela de nenhum quiz criado");
     }
 }
 
 function showYourQuizzes(response) {
     const yourQuizzes = document.querySelector(".your-quizzes .quizzes");
     yourQuizzes.innerHTML += `
-    <div class="quizz" onclick="getQuizz(${response.data.id}, openQuizzPage)">
-        <img src="${response.data.image}" alt="${response.data.title}">
+    <div class="quizz">
+        <img src="${response.data.image}" alt="${response.data.title}" onclick="getQuizz(${response.data.id}, openQuizzPage)">
         <div class="quizz-name">
             ${response.data.title}
         </div>
         <div class="edit-quizz-buttons">
             <ion-icon name="create-outline"></ion-icon>
-            <ion-icon name="trash-outline" class="delete-quizz"></ion-icon>
+            <ion-icon name="trash-outline" class="delete-quizz" onclick="confirmDeleteQuizz(${response.data.id})"></ion-icon>
         </div>
     </div>
     `
+}
+
+function confirmDeleteQuizz(id) {
+    const toDelete = confirm("Você tem certeza que quer deletar esse quiz?");
+    if(toDelete) {
+        deleteQuizz(id);
+    }
+}
+
+function deleteQuizz(id) {
+    console.log("trying to delete");
+    console.log(id);
+    let ids = JSON.parse(localStorage.getItem("ids"));
+
+    if(ids !== null) {
+        key = ids.find(e => e.includes(id))[1];
+        console.log("ifs are working");
+        const promise = axios.delete(`${URL_API}/${id}`, {
+            headers: {
+                "Secret-Key": key
+            }
+        });
+        console.log(promise);
+        ids = ids.filter(e => !e.includes(key));
+        const serializedIds = JSON.stringify(ids);
+        localStorage.removeItem("ids");
+        localStorage.setItem("ids", serializedIds);
+        promise.then(checkYourQuizzes);
+    }
 }
 
 function openQuizzPage(response) {

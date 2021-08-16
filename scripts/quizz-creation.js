@@ -40,14 +40,14 @@ function sendQuizzServer() {
     promise.then(showQuizzSucess);
 }
 
-function storeQuizzId(id) {
+function storeQuizzId(id, key) {
     let ids = JSON.parse(localStorage.getItem("ids"));
 
     if(ids === null){
         ids = [];
     }
 
-    ids.push(id);
+    ids.push([id, key]);
     const serializedIds = JSON.stringify(ids);
 
     localStorage.setItem("ids", serializedIds);
@@ -344,7 +344,7 @@ function checkQuizzLevels(select) {
 }
 
 function showQuizzSucess(response) {
-    storeQuizzId(response.data.id);
+    storeQuizzId(response.data.id, response.data.key);
     // changePages("quizz-levels", "quizz-success");
     changePages("quizz-success");
     //const quizzSuccess = document.querySelector(".quizz-success .quizz");
@@ -364,9 +364,6 @@ function showQuizzSucess(response) {
 }
 
 
-function accessQuizz(id) {
-    
-}
 //changePages("quizzes-list", "quizz-levels"); 
 //drawQuizzLevels();
 
