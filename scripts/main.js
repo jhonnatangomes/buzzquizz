@@ -168,7 +168,7 @@ function openQuizzPage(response) {
     
     for(let i = 0; i < response.data.questions.length; i++) {
         quizzPage.innerHTML += `<section class="question" id="question${i + 1}">
-        <div class="question-header" style="background-color: ${response.data.questions[i].color}; color:${(response.data.questions[i].color === "#FFFFFF") ? "#000000":"#FFFFFF"}">
+        <div class="question-header" style="background-color: ${response.data.questions[i].color}; color:${(response.data.questions[i].color === "#FFFFFF" || response.data.questions[i].color === "#ffffff") ? "#000000":"#FFFFFF"}">
             ${response.data.questions[i].title}
         </div>
 

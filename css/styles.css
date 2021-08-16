@@ -177,7 +177,6 @@ button {
 
 .question {
     width: 759px;
-    height: 676px;
     margin-top: 42px;
     padding: 27.91px 34.41px 0 36.43px;;
     background-color: #FFFFFF;
@@ -224,7 +223,6 @@ button {
 .question-item p {
     margin: 9px 0 18.61px 0;
     width: 329.91px;
-    height: 34px;
 }
 
 .correct-item {
@@ -562,7 +560,6 @@ ion-icon {
     .question {
         padding: 18px;
         width: 375px;
-        height: 436px;
         margin-top: 24px;
         margin-bottom: 4px;
         padding: 18px 18px 0 18px;
