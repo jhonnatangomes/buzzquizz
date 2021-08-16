@@ -5,7 +5,7 @@ const sectionQuizzLevels = document.querySelector(".quizz-levels");
 const sectionQuizzSuccess = document.querySelector(".quizz-success");
 
 
-let title, titleImageUrl, numQuestions = 3, numLevels = 2;
+let title, titleImageUrl, numQuestions = 3, numLevels = 2, isEditing = false;
 
 let questions = [], levels = [];
 
@@ -35,7 +35,22 @@ function sendQuizzServer() {
         levels: levels
     };
 
-    const promise = axios.post(URL_API, quizzObject);
+    // const data = [title, titleImageUrl, questions, levels];
+    console.log(quizzObject);
+
+    let promise;
+    if(isEditing){
+        let ids = JSON.parse(localStorage.getItem("ids"));
+        key = ids.find(e => e.includes(quizz.id))[1];
+        promise = axios.put(`${URL_API}/${quizz.id}`, quizzObject, {
+            headers: {
+                "Secret-Key": key
+            }
+        });
+    }
+    else{
+        promise = axios.post(URL_API, quizzObject);
+    }
     console.log(promise);
     promise.then(showQuizzSucess);
 }
@@ -47,10 +62,15 @@ function storeQuizzId(id, key) {
         ids = [];
     }
 
-    ids.push([id, key]);
-    const serializedIds = JSON.stringify(ids);
-
-    localStorage.setItem("ids", serializedIds);
+    if(!isEditing) {
+        ids.push([id, key]);
+        const serializedIds = JSON.stringify(ids);
+        localStorage.setItem("ids", serializedIds);
+    }
+    else{
+        isEditing = false;
+    }
+    
 }
 
 /*                 Basic info functions                  */
@@ -160,6 +180,10 @@ function drawQuizzQuestions() {
         </div>
     `}
     sectionQuizzQuestions.innerHTML += `<button class="default-button next-button" onclick="checkAllQuizzQuestions()">Prosseguir para criar níveis</button>`
+
+    if(isEditing) {
+        fillQuizzQuestionsInput();
+    }
 }
 
 const checkAllQuizzQuestions = () => {
@@ -271,6 +295,10 @@ function drawQuizzLevels() {
         </div>`
     }
     sectionQuizzLevels.innerHTML += `<button class="default-button finish-quizz" onclick="checkAllQuizzLevels()">Finalizar Quizz</button>`
+
+    if(isEditing) {
+        fillQuizzLevelsInput();
+    }
 }
 
 const checkAllQuizzLevels = () => {

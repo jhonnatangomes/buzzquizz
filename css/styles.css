@@ -113,7 +113,7 @@ button {
     line-height: 20px;
 }
 
-.quizz-name, .all-quizzes .quizz div {
+.quizz-name, .all-quizzes .quizz div, .quizz-success .quizz div {
     width: 301px;
     height: 54px;
     bottom: 7px;

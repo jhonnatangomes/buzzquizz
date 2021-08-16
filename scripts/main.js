@@ -1,6 +1,7 @@
 const URL_API = "https://mock-api.bootcamp.respondeai.com.br/api/v3/buzzquizz/quizzes";
 let questionIdPrevious = 0, questionsAnswered = 0, correctAnswers = 0, score = 0, showingResult = false;
 let levelsResponse;
+let quizz;
 
 function getQuizzes() {
     const promise = axios.get(URL_API);
@@ -64,7 +65,7 @@ function checkYourQuizzes() {
         idsOnly.forEach(id => getQuizz(id, showYourQuizzes));
         console.log("Está mostrando a parte de quizzes");
     }
-    if(ids.length === 0){
+    if(ids !== null && ids.length === 0){
         noQuizzesCreated.classList.remove("hidden");
         yourQuizzes.classList.add("hidden");
         console.log("Era pra mostrar a tela de nenhum quiz criado");
@@ -80,7 +81,7 @@ function showYourQuizzes(response) {
             ${response.data.title}
         </div>
         <div class="edit-quizz-buttons">
-            <ion-icon name="create-outline"></ion-icon>
+            <ion-icon name="create-outline" onclick="getQuizz(${response.data.id}, fillBasicInfoInputs)"></ion-icon>
             <ion-icon name="trash-outline" class="delete-quizz" onclick="confirmDeleteQuizz(${response.data.id})"></ion-icon>
         </div>
     </div>
@@ -114,6 +115,42 @@ function deleteQuizz(id) {
         localStorage.setItem("ids", serializedIds);
         promise.then(checkYourQuizzes);
     }
+}
+
+function fillBasicInfoInputs(response) {
+    isEditing = true;
+    quizz = response.data;
+    sectionBasicInfo.querySelector(".your-quizz-title").value = quizz.title;
+    sectionBasicInfo.querySelector(".url-img").value = quizz.image;
+    sectionBasicInfo.querySelector(".number-questions").value = quizz.questions.length;
+    sectionBasicInfo.querySelector(".number-levels").value = quizz.levels.length;
+
+    changePages("basic-info");
+}
+
+function fillQuizzQuestionsInput() {
+    const containerCreate = sectionQuizzQuestions.querySelectorAll(".container-create");
+    containerCreate.forEach((e, i) => {
+        e.querySelector(".question-text").value = quizz.questions[i].title;
+        e.querySelector(".question-background-color").value = quizz.questions[i].color;
+        const inputAnswers = e.querySelectorAll(".text-answer");
+        const inputUrlImages = e.querySelectorAll(".url-img-answer");
+
+        quizz.questions[i].answers.forEach((answer, j) => {
+            inputAnswers[j].value = answer.text;
+            inputUrlImages[j].value = answer.image;
+        })
+    })
+}
+
+function fillQuizzLevelsInput() {
+    const containerCreate = sectionQuizzLevels.querySelectorAll(".container-create");
+    containerCreate.forEach((e, i) => {
+        e.querySelector(".level-title").value = quizz.levels[i].title;
+        e.querySelector(".minimal-percentage").value = quizz.levels[i].minValue;
+        e.querySelector(".url-level-image").value = quizz.levels[i].image;
+        e.querySelector(".level-description").value = quizz.levels[i].text;
+    })
 }
 
 function openQuizzPage(response) {
