@@ -170,12 +170,14 @@ button {
 
 .quizz-title span, .question-header, .question-item p {
     text-align: center;
-    overflow-x: auto; 
-    overflow-y: auto;
+    /* overflow-x: auto; 
+    overflow-y: auto; */
+    overflow-wrap: anywhere;
 }
 
 .all-quizzes .quizz div {
-    overflow: auto;
+    /* overflow: auto; */
+    overflow-wrap: anywhere;
 }
 
 .question {
@@ -254,14 +256,15 @@ button {
 .result-header {
     width: 727px;
     height: 99px;
-    color: #FFFFFF;
+    color: black;
     font-weight: bold;
     font-size: 23px;
     background-color: #EC362D;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: auto;
+    /* overflow: auto; */
+    overflow-wrap: anywhere;
 }
 
 .result-container {
@@ -560,8 +563,9 @@ ion-icon {
     .quizz-title span, .question-header, .question-item p {
         width: 100%;
         text-align: center;
-        overflow-x: auto;
-        overflow-y: hidden;
+        /* overflow-x: auto;
+        overflow-y: hidden; */
+        overflow-wrap: anywhere;
     }
 
     .question {
