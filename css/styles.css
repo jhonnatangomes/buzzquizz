@@ -105,16 +105,19 @@ button {
 }
 
 .quizz div {
-    width: 301px;
-    height: 54px;
     position: absolute;
-    bottom: 7px;
-    left: 18px;
     font-size: 19px;
     color: white;
     display: flex;
     align-items: center;
     line-height: 20px;
+}
+
+.quizz-name, .all-quizzes .quizz div {
+    width: 301px;
+    height: 54px;
+    bottom: 7px;
+    left: 18px;
 }
 
 .quizz img {
@@ -165,10 +168,14 @@ button {
     z-index: -1;
 }
 
-.quizz-title span, .question-header, .question-item p, .quizz div {
+.quizz-title span, .question-header, .question-item p {
     text-align: center;
     overflow-x: auto; 
     overflow-y: auto;
+}
+
+.all-quizzes .quizz div {
+    overflow: auto;
 }
 
 .question {
@@ -184,10 +191,6 @@ button {
 
 .question:last-child {
     margin-bottom: 20px;
-}
-
-.question:nth-child(odd) .question-header {
-    background-color: #A0438D;
 }
 
 .question-header {
@@ -329,6 +332,10 @@ button {
     text-align: left;
 }
 
+.container-create input {
+    margin-bottom: 9px;
+}
+
 .quizz-create input {
     width: 100%;
     height: 46px;
@@ -396,7 +403,7 @@ button {
 }
 
 .quizz-levels input {
-    /* margin-bottom: 12px; */
+    margin-bottom: 3px;
 }
 
 .quizz-levels input:last-child {
@@ -453,11 +460,42 @@ button {
 }
 
 .opened {
-    max-height: 850px;
+    max-height: 900px;
 }
 
 ion-icon {
     cursor: pointer;
+}
+
+.quizzes .quizz {
+    position: relative;
+}
+
+.edit-quizz-buttons {
+    top: 9px;
+    right: 0;
+    background-color: #EC362D;
+    border-radius: 10px 0px 0px 11px;
+    width: 0px;
+    opacity: 0;
+    height: 87px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    transition: all 0.6s ease;
+}
+
+.edit-quizz-buttons ion-icon {
+    color: white;
+}
+
+.delete-quizz {
+    margin-right: 5px;
+}
+
+.your-quizzes .quizz:hover .edit-quizz-buttons{
+    width: 43px;
+    opacity: 1;
 }
 
 @media (max-width: 1100px) {
@@ -603,6 +641,15 @@ ion-icon {
     .quizz-success .quizz {
         width: 340px;
         margin: 29px 0 24px 0;
+    }
+
+    .edit-quizz-buttons {
+        opacity: 1;
+        width: 43px;
+    }
+
+    .all-quizzes .quizz div {
+        width: 100%;
     }
     
 }

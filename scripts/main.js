@@ -60,8 +60,12 @@ function showYourQuizzes(response) {
     yourQuizzes.innerHTML += `
     <div class="quizz" onclick="getQuizz(${response.data.id}, openQuizzPage)">
         <img src="${response.data.image}" alt="${response.data.title}">
-        <div>
+        <div class="quizz-name">
             ${response.data.title}
+        </div>
+        <div class="edit-quizz-buttons">
+            <ion-icon name="create-outline"></ion-icon>
+            <ion-icon name="trash-outline" class="delete-quizz"></ion-icon>
         </div>
     </div>
     `
