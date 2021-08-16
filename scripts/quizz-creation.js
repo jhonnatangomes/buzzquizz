@@ -4,11 +4,9 @@ const sectionQuizzQuestions = document.querySelector(".quizz-questions");
 const sectionQuizzLevels = document.querySelector(".quizz-levels");
 const sectionQuizzSuccess = document.querySelector(".quizz-success");
 
-
-let title, titleImageUrl, numQuestions = 3, numLevels = 2, isEditing = false;
+let title, titleImageUrl, numQuestions, numLevels, isEditing = false;
 
 let questions = [], levels = [];
-
 
 /*                 General functions                  */
 function toggleCollapsed(select) {
@@ -56,18 +54,14 @@ function sendQuizzServer() {
 function storeQuizzId(id, key) {
     let ids = JSON.parse(localStorage.getItem("ids"));
 
-    if(ids === null){
-        ids = [];
-    }
+    if(ids === null) ids = [];
 
     if(!isEditing) {
         ids.push([id, key]);
         const serializedIds = JSON.stringify(ids);
         localStorage.setItem("ids", serializedIds);
     }
-    else{
-        isEditing = false;
-    }
+    else isEditing = false;
     
 }
 
@@ -178,9 +172,7 @@ function drawQuizzQuestions() {
     `}
     sectionQuizzQuestions.innerHTML += `<button class="default-button next-button" onclick="checkAllQuizzQuestions()">Prosseguir para criar níveis</button>`
 
-    if(isEditing) {
-        fillQuizzQuestionsInput();
-    }
+    if (isEditing) fillQuizzQuestionsInput();
 }
 
 const checkAllQuizzQuestions = () => {
@@ -291,9 +283,7 @@ function drawQuizzLevels() {
     }
     sectionQuizzLevels.innerHTML += `<button class="default-button finish-quizz" onclick="checkAllQuizzLevels()">Finalizar Quizz</button>`
 
-    if(isEditing) {
-        fillQuizzLevelsInput();
-    }
+    if(isEditing) fillQuizzLevelsInput();
 }
 
 const checkAllQuizzLevels = () => {
@@ -372,7 +362,6 @@ function showQuizzSucess(response) {
     <div class="container-buttons">
         <button class="default-button access-quizz-button" onclick="getQuizz(${response.data.id}, openQuizzPage);">Acessar Quizz</button>
         <p class="back-home-button" onclick="returnToHomeScreen();">Voltar para home</p>
-    </div>
-    `
+    </div>`
     isLoading(false);
 }

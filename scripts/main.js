@@ -16,12 +16,8 @@ function getQuizzes() {
 
 function getQuizz(element, functionToCall) {
     let elementId;
-    if(typeof(element) === "number"){
-        elementId = element;
-    }
-    else {
-        elementId = element.id;
-    }
+    if(typeof(element) === "number") elementId = element;
+    else elementId = element.id;
 
     isLoading(true);
     const promise = axios.get(`${URL_API}/${elementId}`);
@@ -34,9 +30,7 @@ function showQuizzes(response) {
     let ids = JSON.parse(localStorage.getItem("ids"));
     checkYourQuizzes();
 
-    if(ids === null) {
-        ids = [];
-    }
+    if(ids === null) ids = [];
 
     let idsOnly = [];
     ids.forEach(e => {idsOnly.push(e[0])});
@@ -96,9 +90,7 @@ function showYourQuizzes(response) {
 
 function confirmDeleteQuizz(id) {
     const toDelete = confirm("Você tem certeza que quer deletar esse quiz?");
-    if(toDelete) {
-        deleteQuizz(id);
-    }
+    if(toDelete) deleteQuizz(id);
 }
 
 function deleteQuizz(id) {
@@ -204,9 +196,7 @@ function openQuizzPage(response) {
                  </div>
                  `
             }
-            
-        }
-        
+        }  
     }
 
     levelsResponse = response.data.levels;
@@ -223,7 +213,6 @@ function shuffle(array) {
 }
 
 function selectAnswer(element, questionId, questionsLength) {
-
     if(!element.classList.contains("is-answered") && questionsAnswered !== questionsLength) {
         const answers = element.parentNode.querySelectorAll(".question-item");
         element.classList.add("selected-answer");
@@ -247,7 +236,6 @@ function selectAnswer(element, questionId, questionsLength) {
             answer.classList.add("is-answered");
 
         });
-
         questionsAnswered += 1;
         setTimeout(scrollToNextQuestion, 2000, questionId);
     }
@@ -256,10 +244,7 @@ function selectAnswer(element, questionId, questionsLength) {
 
 function scrollToNextQuestion (questionId) {
     const nextDiv = document.querySelector(`#question${questionId + 1}`);
-    if (nextDiv !== null) {
-        nextDiv.scrollIntoView();
-    }
-    
+    if (nextDiv !== null) nextDiv.scrollIntoView();   
 }
 
 function showResult(questionsLength) {
@@ -285,7 +270,6 @@ function showResult(questionsLength) {
             <p class="back-home-button" onclick="returnToHomeScreen();">Voltar para home</p>
         </div>
             `
-        
     }
 }
 
@@ -313,7 +297,6 @@ function restartQuizz() {
 
 function returnToHomeScreen() {
     changePages("quizzes-list");
-
     questionsAnswered = 0;
     score = 0;
     correctAnswers = 0;

@@ -111,10 +111,11 @@ button {
     display: flex;
     align-items: center;
     line-height: 20px;
+    overflow-wrap: anywhere;
 }
 
 .quizz-name, .all-quizzes .quizz div, .quizz-success .quizz div {
-    width: 301px;
+    width: 90%;
     height: 54px;
     bottom: 7px;
     left: 18px;
@@ -162,19 +163,15 @@ button {
 }
 
 .quizz-title img {
+    object-fit: cover;
     width: 100%;
     height: 227px;
     position: absolute;
-    z-index: -1;
-    
+    z-index: -1;  
 }
 
 .quizz-title span, .question-header, .question-item p {
     text-align: center;
-    overflow-wrap: anywhere;
-}
-
-.all-quizzes .quizz div {
     overflow-wrap: anywhere;
 }
 
@@ -411,18 +408,20 @@ button {
     height: 54px;
 }
 
-.quizz-success span{
+.quizz-success span {
     display: block;
 }
 
 .quizz-success .quizz {
     width: 500px;
-    height: auto;
+    height: 266px;
     margin: 45px 0;
 }
 
 .quizz-success img {
-    width: 100%;
+    object-fit: cover;
+    width: 500px;
+    height: 266px;
 }
 
 .access-quizz-button {
@@ -544,6 +543,7 @@ ion-icon {
     }
 
     .quizzes img {
+        object-fit: cover;
         width: 90vw;
         height: 27.13vh;
     }
@@ -656,7 +656,13 @@ ion-icon {
 
     .quizz-success .quizz {
         width: 340px;
-        margin: 29px 0 24px 0;
+        height: 181px;
+    }
+    
+    .quizz-success img {
+        object-fit: cover;
+        width: 340px;
+        height: 181px;
     }
 
     .edit-quizz-buttons {
@@ -664,8 +670,4 @@ ion-icon {
         width: 43px;
     }
 
-    .all-quizzes .quizz div {
-        width: 100%;
-    }
-    
 }
